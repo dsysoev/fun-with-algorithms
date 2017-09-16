@@ -1,2 +1,2 @@
 # fun-with-algorithms
-Implementation of simple algotithms in python
+Implementation of simple algorithms in python
