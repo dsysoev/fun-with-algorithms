@@ -47,7 +47,7 @@ def strassen_square_matrix_product(A, B):
     n = len(A)
 
     # the size of matrix when we start using naive square maxtrix product
-    LEAF_SIZE = 2
+    LEAF_SIZE = 8
 
     if n <= LEAF_SIZE:
         return naive_square_matrix_product(A, B)
@@ -114,12 +114,14 @@ def strassen_square_matrix_product(A, B):
 
     return C
 
-a = [[1, 2, 7, 0], [2, 3, 4, 2], [4, 5, 1, 0], [2, 6, 3, 8]]
-b = [[4, 5, 6, 1], [7, 6, 8, 0], [1, 0, 3, 6], [7, 4, 7, 5]]
+if __name__ in "__main__":
 
-naive = naive_square_matrix_product(a, b)
-print('naive algorithm')
-print_mx(naive)
-print('Strassen algorithm')
-strassen = strassen_square_matrix_product(a, b)
-print_mx(strassen)
+    a = [[1, 2, 7, 0], [2, 3, 4, 2], [4, 5, 1, 0], [2, 6, 3, 8]]
+    b = [[4, 5, 6, 1], [7, 6, 8, 0], [1, 0, 3, 6], [7, 4, 7, 5]]
+
+    naive = naive_square_matrix_product(a, b)
+    print('naive algorithm')
+    print_mx(naive)
+    print('Strassen algorithm')
+    strassen = strassen_square_matrix_product(a, b)
+    print_mx(strassen)
