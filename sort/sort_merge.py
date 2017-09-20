@@ -1,18 +1,5 @@
 # coding: utf-8
 
-def insertion_sort(a):
-    """ Function to sort an array using insertion sort algorithm """
-    # start from second element of list
-    for j in range(1, len(a)):
-        key = a[j]
-        i = j - 1
-        # insertion a[j] into sorted list a
-        while i >= 0 and a[i] > key:
-            a[i + 1] = a[i]
-            i -= 1
-        a[i + 1] = key
-    return a
-
 def merge_sort(x):
     """ Function to sort an array using merge sort algorithm """
     if len(x) == 0 or len(x) == 1:
@@ -46,5 +33,4 @@ if __name__ in "__main__":
 
     a = [1, 0, 2, 4, 5, 6, 2, 7, 9, 1, 3, 8, -1]
 
-    print('insertion_sort\n', insertion_sort(a))
-    print('merge_sort\n', merge_sort(a))
+    print('merge_sort', merge_sort(a))

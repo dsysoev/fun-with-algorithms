@@ -20,62 +20,46 @@ def shape_mx(A):
     """ shape of matrix """
     return (len(A), len(A[0]))
 
-def add(A, B):
-    """ Implementation of summation of two matrix """
-    n = len(A)
-    C = zeros_matrix((n, n))
-    for i in range(0, n):
-        for j in range(0, n):
-            C[i][j] = A[i][j] + B[i][j]
-    return C
-
 def subtract(A, B):
-    """ Implementation of subtraction of two matrix """
-    n = len(A)
-    C = zeros_matrix((n, n))
-    for i in range(0, n):
-        for j in range(0, n):
-            C[i][j] = A[i][j] - B[i][j]
-    return C
+    num = len(A[0])
+    a_ = [val for sub in A for val in sub]
+    b_ = [val for sub in B for val in sub]
+    ab_ = [x - y for x, y in zip(a_, b_)]
+    return [ab_[i * num:num + i * num] for i in range(num)]
+
+def add(A, B):
+    num = len(A[0])
+    a_ = [val for sub in A for val in sub]
+    b_ = [val for sub in B for val in sub]
+    ab_ = [x + y for x, y in zip(a_, b_)]
+    return [ab_[i * num:num + i * num] for i in range(num)]
 
 def zeros_matrix(shape):
     """ create zero matrix with define shape """
     return [[0 for j in range(0, shape[1])] for i in range(0, shape[0])]
 
-def strassen_square_matrix_product(A, B):
+def strassen_square_matrix_product(A, B, leaf_size=64):
     """ Implementation of the strassen algorithm for square matrixes"""
-    n = len(A)
 
     # the size of matrix when we start using naive square maxtrix product
-    LEAF_SIZE = 8
+    # LEAF_SIZE = 16
 
-    if n <= LEAF_SIZE:
+    n = len(A)
+    if n <= leaf_size:
         return naive_square_matrix_product(A, B)
 
     # initializing the new sub-matrices
     new_size = n // 2
 
-    a11 = zeros_matrix((new_size, new_size))
-    a12 = zeros_matrix((new_size, new_size))
-    a21 = zeros_matrix((new_size, new_size))
-    a22 = zeros_matrix((new_size, new_size))
+    a11 = list(map(lambda x: x[:new_size], A[:new_size]))      # top left
+    a12 = list(map(lambda x: x[new_size:], A[:new_size]))      # top right
+    a21 = list(map(lambda x: x[:new_size], A[new_size:]))      # bottom left
+    a22 = list(map(lambda x: x[new_size:], A[new_size:]))      # bottom right
 
-    b11 = zeros_matrix((new_size, new_size))
-    b12 = zeros_matrix((new_size, new_size))
-    b21 = zeros_matrix((new_size, new_size))
-    b22 = zeros_matrix((new_size, new_size))
-
-    # dividing the matrices in 4 sub-matrices:
-    for i in range(0, new_size):
-        for j in range(0, new_size):
-            a11[i][j] = A[i][j]                         # top left
-            a12[i][j] = A[i][j + new_size]              # top right
-            a21[i][j] = A[i + new_size][j]              # bottom left
-            a22[i][j] = A[i + new_size][j + new_size]   # bottom right
-            b11[i][j] = B[i][j]                         # top left
-            b12[i][j] = B[i][j + new_size]              # top right
-            b21[i][j] = B[i + new_size][j]              # bottom left
-            b22[i][j] = B[i + new_size][j + new_size]   # bottom right
+    b11 = list(map(lambda x: x[:new_size], B[:new_size]))      # top left
+    b12 = list(map(lambda x: x[new_size:], B[:new_size]))      # top right
+    b21 = list(map(lambda x: x[:new_size], B[new_size:]))      # bottom left
+    b22 = list(map(lambda x: x[new_size:], B[new_size:]))      # bottom right
 
     # Calculating p1 to p7:
     # p1 = (a11) * (b12 - b22)
@@ -103,16 +87,11 @@ def strassen_square_matrix_product(A, B):
     # c22 = p5 + p1 - p3 - p7
     c22 = subtract(subtract(add(p5, p1), p3), p7)
 
-    # grouping the results obtained to single matrix
-    C = zeros_matrix((n, n))
-    for i in range(0, new_size):
-        for j in range(0, new_size):
-            C[i][j] = c11[i][j]
-            C[i][j + new_size] = c12[i][j]
-            C[i + new_size][j] = c21[i][j]
-            C[i + new_size][j + new_size] = c22[i][j]
+    cl = c11 + c21
+    cr = c12 + c22
+    return [cl[i] + cr[i] for i in range(len(cl))]
 
-    return C
+# https://martin-thoma.com/strassen-algorithm-in-python-java-cpp/
 
 if __name__ in "__main__":
 

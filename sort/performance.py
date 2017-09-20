@@ -1,8 +1,7 @@
 # coding: utf-8
 
-import timeit
-
 import os
+import timeit
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -11,7 +10,8 @@ import tempfile
 
 import pandas as pd
 
-from sort import insertion_sort, merge_sort
+from sort_insertion import insertion_sort
+from sort_merge import merge_sort
 
 def get_performance_data():
 
@@ -23,13 +23,14 @@ def get_performance_data():
         a = np.random.randint(-min_max_value, min_max_value, size=(n)).tolist()
 
         data['numbers'].append(n)
-        for algorithm, desc in [
-                        ('insertion_sort', 'insertion sort O(n2)'),
-                        ('merge_sort', 'merge sort O(n ln(n))')
+        for algorithm, desc, buildin in [
+                        ('insertion_sort', 'insertion sort O(n2)', False),
+                        ('merge_sort', 'merge sort O(n ln(n))', False),
+                        ('sorted', 'build in sort O(n ln(n))', True),
                         ]:
             duration = timeit.Timer(
                 algorithm + '({})'.format(a),
-                """from __main__ import {}""".format(algorithm)
+                '' if buildin else """from __main__ import {}""".format(algorithm)
                 ).timeit(number=10)
             if desc not in data:
                 data[desc] = []
@@ -43,15 +44,16 @@ def plot_chart():
     if not os.path.isfile(FLAGS.results_file):
         raise IOError("No such file '{}'".format(FLAGS.results_file))
 
-    # read DataFrame from results file
+    # read DataFrame
     results = pd.read_csv(FLAGS.results_file, index_col='numbers')
 
+    print(results)
     # plot chart
     fig, ax = plt.subplots(1)
     for name in results.columns:
         (results[name] / results.index).plot(ax=ax)
 
-    ax.set_title('Сomparison of sorting algorithms')
+    ax.set_title('Comparison of sorting algorithms')
     ax.set_ylabel('time duration / length of list')
     ax.set_xlabel('length of list')
     ax.set_xscale('log')
@@ -74,7 +76,7 @@ def main():
 if __name__ in "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--force', action='store_true')
-    parser.add_argument('--max_degree', type=int, default=3)
+    parser.add_argument('--max_degree', type=int, default=4)
     parser.add_argument(
         '--results_file',
         type=str,

@@ -8,7 +8,8 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from matrix_multiplication import naive_square_matrix_product, strassen_square_matrix_product
+from multi_naive import naive_square_matrix_product
+from multi_strassen import strassen_square_matrix_product
 
 def get_performance_data():
 
@@ -30,7 +31,7 @@ def get_performance_data():
             duration = timeit.Timer(
                 algorithm + '({}, {})'.format(a, b),
                 """from __main__ import {}""".format(algorithm)
-                ).timeit(number=10)
+                ).timeit(number=1)
             if desc not in data:
                 data[desc] = []
             data[desc].append(duration)
@@ -49,13 +50,13 @@ def plot_chart():
     # plot chart
     fig, ax = plt.subplots(1)
     for name in results.columns:
-        # (results[name] / results.index ** 2).plot(ax=ax)
+        # (results[name] / results.index).plot(ax=ax)
         (results[name]).plot(ax=ax)
 
-    ax.set_title('Сomparison of matrix multiplication algorithms')
+    ax.set_title('Comparison of matrix multiplication algorithms')
     ax.set_ylabel('time duration')
     ax.set_xlabel('shape of square matrix')
-    # ax.set_xscale('log')
+    ax.set_xscale('log')
     ax.set_yscale('log')
     ax.legend()
 
@@ -77,7 +78,7 @@ if __name__ in "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--force', action='store_true')
-    parser.add_argument('--max_degree', type=int, default=7)
+    parser.add_argument('--max_degree', type=int, default=10)
     parser.add_argument(
         '--results_file',
         type=str,
