@@ -1,9 +1,9 @@
 # coding: utf-8
 
-def naive_square_matrix_product(A, B):
+def naive_square_matrix_product_simple(A, B):
     """ Implementation of naive squre matrix multiplication algorithm """
     n = len(A)
-    C = zeros_matrix((n, n))
+    C = [[0 for j in range(0, n)] for i in range(0, n)]
 
     for i in range(n):
         for j in range(n):
@@ -11,14 +11,17 @@ def naive_square_matrix_product(A, B):
                 C[i][j] += A[i][k] * B[k][j]
     return C
 
+def naive_square_matrix_product(M, N):
+    """Implementation of multiply square matrices of same dimension M and N"""
+    # set columns tuple of N matrix
+    tuple_N = zip(*N)
+    return [[sum(el_m * el_n for el_m, el_n in zip(row_m, col_n))
+                                        for col_n in tuple_N] for row_m in M]
+
 def print_mx(matrix):
     """ pretty print of matrix """
     for line in matrix:
         print("\t".join(map(str, line)))
-
-def shape_mx(A):
-    """ shape of matrix """
-    return (len(A), len(A[0]))
 
 def subtract(A, B):
     num = len(A[0])
@@ -34,17 +37,13 @@ def add(A, B):
     ab_ = [x + y for x, y in zip(a_, b_)]
     return [ab_[i * num:num + i * num] for i in range(num)]
 
-def zeros_matrix(shape):
-    """ create zero matrix with define shape """
-    return [[0 for j in range(0, shape[1])] for i in range(0, shape[0])]
-
 def strassen_square_matrix_product(A, B, leaf_size=64):
     """ Implementation of the strassen algorithm for square matrixes"""
 
-    # the size of matrix when we start using naive square maxtrix product
-    # LEAF_SIZE = 16
-
     n = len(A)
+
+    # leaf size determine
+    # the size of matrix when we start using naive square matrix product
     if n <= leaf_size:
         return naive_square_matrix_product(A, B)
 
@@ -90,8 +89,6 @@ def strassen_square_matrix_product(A, B, leaf_size=64):
     cl = c11 + c21
     cr = c12 + c22
     return [cl[i] + cr[i] for i in range(len(cl))]
-
-# https://martin-thoma.com/strassen-algorithm-in-python-java-cpp/
 
 if __name__ in "__main__":
 

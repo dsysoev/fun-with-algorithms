@@ -8,10 +8,10 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from multi_naive import naive_square_matrix_product
-from multi_strassen import strassen_square_matrix_product
+from multiplication import naive_square_matrix_product
+from multiplication import strassen_square_matrix_product
 
-def get_performance_data():
+def get_performance_multiplication():
 
     data = {'shape': []}
     for i in range(1, FLAGS.max_degree):
@@ -25,8 +25,8 @@ def get_performance_data():
 
         data['shape'].append(sshape)
         for algorithm, desc in [
-                        ('naive_square_matrix_product', 'naive O(n3)'),
-                        ('strassen_square_matrix_product', 'Strassen O(n2.81)')
+                        ('naive_square_matrix_product', 'naive O(n^3)'),
+                        ('strassen_square_matrix_product', 'Strassen O(n^2.81)'),
                         ]:
             duration = timeit.Timer(
                 algorithm + '({}, {})'.format(a, b),
@@ -50,7 +50,6 @@ def plot_chart():
     # plot chart
     fig, ax = plt.subplots(1)
     for name in results.columns:
-        # (results[name] / results.index).plot(ax=ax)
         (results[name]).plot(ax=ax)
 
     ax.set_title('Comparison of matrix multiplication algorithms')
@@ -68,9 +67,10 @@ def main():
         if not os.path.isdir(os.path.dirname(FLAGS.results_file)):
             os.makedirs(os.path.dirname(FLAGS.results_file))
 
-        data = get_performance_data()
+        data = get_performance_multiplication()
         dataframe = pd.DataFrame(data).set_index('shape')
         dataframe.to_csv(FLAGS.results_file)
+        print('Data saved to "{}" file'.format(FLAGS.results_file))
 
     plot_chart()
 
