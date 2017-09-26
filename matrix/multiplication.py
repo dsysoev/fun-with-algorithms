@@ -1,6 +1,6 @@
 # coding: utf-8
 
-def naive_square_matrix_product_simple(A, B):
+def naive_square_matrix_product(A, B):
     """ Implementation of naive squre matrix multiplication algorithm """
     n = len(A)
     C = [[0 for j in range(0, n)] for i in range(0, n)]
@@ -10,13 +10,6 @@ def naive_square_matrix_product_simple(A, B):
             for k in range(n):
                 C[i][j] += A[i][k] * B[k][j]
     return C
-
-def naive_square_matrix_product(M, N):
-    """Implementation of multiply square matrices of same dimension M and N"""
-    # set columns tuple of N matrix
-    tuple_N = zip(*N)
-    return [[sum(el_m * el_n for el_m, el_n in zip(row_m, col_n))
-                                        for col_n in tuple_N] for row_m in M]
 
 def print_mx(matrix):
     """ pretty print of matrix """
@@ -95,6 +88,10 @@ if __name__ in "__main__":
     a = [[1, 2, 7, 0], [2, 3, 4, 2], [4, 5, 1, 0], [2, 6, 3, 8]]
     b = [[4, 5, 6, 1], [7, 6, 8, 0], [1, 0, 3, 6], [7, 4, 7, 5]]
 
+    print('A:')
+    print_mx(a)
+    print('B:')
+    print_mx(b)
     naive = naive_square_matrix_product(a, b)
     print('naive algorithm')
     print_mx(naive)
