@@ -4,61 +4,86 @@ import os
 import timeit
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib
+
+matplotlib.style.use('seaborn')
 
 import argparse
 import tempfile
 
 import pandas as pd
 
-from sort_insertion import insertion_sort
-from sort_merge import merge_sort
+from insertion import insertionsort
+from merge import mergesort
+from heapsort import heapsort
 
 def get_performance_data():
 
+    skip_algorithm_list = []
     data = {'numbers': []}
+
+    max_num = 2 ** (FLAGS.max_degree + 1)
+
     for i in range(1, FLAGS.max_degree + 1):
 
-        n = 10 ** i
-        min_max_value = n * 2
-        a = np.random.randint(-min_max_value, min_max_value, size=(n)).tolist()
+        n = 2 ** i
+        a = np.random.randint(-max_num, max_num, size=(n)).tolist()
 
         data['numbers'].append(n)
         for algorithm, desc, buildin in [
-                        ('insertion_sort', 'insertion sort O(n2)', False),
-                        ('merge_sort', 'merge sort O(n ln(n))', False),
-                        ('sorted', 'build in sort O(n ln(n))', True),
+                        ('insertionsort', 'insertion sort', False),
+                        ('mergesort', 'merge sort', False),
+                        ('heapsort', 'heap sort', False),
+                        # ('sorted', 'python sorted', True),
                         ]:
-            duration = timeit.Timer(
-                algorithm + '({})'.format(a),
-                '' if buildin else """from __main__ import {}""".format(algorithm)
-                ).timeit(number=10)
-            if desc not in data:
-                data[desc] = []
+            # skip slow algorithms and set NaN
+            if algorithm in skip_algorithm_list:
+                duration = float('NaN')
+            else:
+                duration = timeit.Timer(
+                    algorithm + '({})'.format(a),
+                    '' if buildin else """from __main__ import {}""".format(algorithm)
+                    ).timeit(number=100)
+                if desc not in data:
+                    data[desc] = []
+                # if algorithm work more than max_duration_time
+                # add it to skip_algorithm_list
+                if duration > FLAGS.max_duration_time:
+                    skip_algorithm_list.append(algorithm)
+
             data[desc].append(duration)
 
     return data
 
-def plot_chart():
-    """ Read result file and plot chart """
+def read_df():
+    """ read results file and return dataframe """
     # check results file
     if not os.path.isfile(FLAGS.results_file):
         raise IOError("No such file '{}'".format(FLAGS.results_file))
-
     # read DataFrame
-    results = pd.read_csv(FLAGS.results_file, index_col='numbers')
+    return pd.read_csv(FLAGS.results_file, index_col='numbers')
 
-    print(results)
+def plot_chart():
+    """ Read result file and plot chart """
+    results = read_df()
     # plot chart
-    fig, ax = plt.subplots(1)
-    for name in results.columns:
-        (results[name] / results.index).plot(ax=ax)
+    fig, (ax1, ax2) = plt.subplots(2)
 
-    ax.set_title('Comparison of sorting algorithms')
-    ax.set_ylabel('time duration / length of list')
-    ax.set_xlabel('length of list')
-    ax.set_xscale('log')
-    ax.set_yscale('log')
-    ax.legend()
+    for name in results.columns:
+        results[name].plot(ax=ax1)
+
+    for name in results.columns:
+        (results[name] / results.index).plot(ax=ax2)
+
+    ax1.set_title('Comparison of execution speed for sort algorithms (for 100 launch)')
+    ax1.set_ylabel('duration, s')
+    ax2.set_ylabel('duration / length of array')
+    ax2.set_xscale('log')
+    ax2.set_yscale('log')
+
+    for ax in (ax1, ax2):
+        ax.set_xlabel('length of array')
+        ax.legend()
 
     plt.show()
 
@@ -66,17 +91,22 @@ def main():
 
     if FLAGS.force or not os.path.isfile(FLAGS.results_file):
         if not os.path.isdir(os.path.dirname(FLAGS.results_file)):
+            # make folders in tmp
             os.makedirs(os.path.dirname(FLAGS.results_file))
+        # get data
         data = get_performance_data()
         dataframe = pd.DataFrame(data).set_index('numbers')
+        # save it to tmp folder
         dataframe.to_csv(FLAGS.results_file, header=True)
+        print('data saved to {} file'.format(FLAGS.results_file))
 
     plot_chart()
 
 if __name__ in "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--force', action='store_true')
-    parser.add_argument('--max_degree', type=int, default=4)
+    parser.add_argument('--max_degree', type=int, default=14)
+    parser.add_argument('--max_duration_time', type=float, default=10.)
     parser.add_argument(
         '--results_file',
         type=str,

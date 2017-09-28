@@ -1,17 +1,20 @@
 # coding: utf-8
 
-def merge_sort(x):
+def mergesort(x):
     """ Function to sort an array using merge sort algorithm """
     if len(x) == 0 or len(x) == 1:
         return x
     else:
         middle = int(len(x) / 2)
-        a = merge_sort(x[:middle])
-        b = merge_sort(x[middle:])
+        # split the list into 2 branches
+        a = mergesort(x[:middle])
+        b = mergesort(x[middle:])
+    # merge 2 branches
     return merge(a, b)
 
 def merge(a, b):
     """ Function to merge two arrays """
+
     c = []
     while len(a) != 0 and len(b) != 0:
 
@@ -33,4 +36,5 @@ if __name__ in "__main__":
 
     a = [1, 0, 2, 4, 5, 6, 2, 7, 9, 1, 3, 8, -1]
 
-    print('merge_sort', merge_sort(a))
+    print('list      :', a)
+    print('merge sort:', mergesort(a), mergesort(a) == sorted(a))
