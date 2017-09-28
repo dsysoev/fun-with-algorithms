@@ -4,8 +4,11 @@ Implementation of simple algorithms in python
 
 ## Sort
 
-- Insertion Sort O(n^2)
-- Merge Sort O(n*ln(n))
+| Algorithm       | Worst case | Average case |
+|-----------------|------------|--------------|
+| Insertion Sort  | O(n^2)     | O(n^2)       |
+| Merge Sort      | O(n*ln(n)) | O(n*ln(n))   |
+| Heap Sort       | O(n*ln(n)) | O(n*ln(n))   |
 
 ## Matrix
 
