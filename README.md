@@ -9,6 +9,7 @@ Implementation of simple algorithms in python
 | Insertion Sort  | O(n^2)     | O(n^2)       |
 | Merge Sort      | O(n*ln(n)) | O(n*ln(n))   |
 | Heap Sort       | O(n*ln(n)) | O(n*ln(n))   |
+| Quick Sort      | O(n^2)     | O(n*ln(n))   |
 
 ## Matrix
 
