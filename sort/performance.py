@@ -17,6 +17,11 @@ from insertion import insertionsort
 from merge import mergesort
 from heapsort import heapsort
 from quicksort import quicksort
+from quicksort import quicksort_random
+from quicksort import quicksort_median
+from countingsort import countingsort
+from radixsort import radixsort
+from bucketsort import bucketsort
 
 def get_performance_data():
 
@@ -31,11 +36,14 @@ def get_performance_data():
         a = np.random.randint(-max_num, max_num, size=(n)).tolist()
 
         data['numbers'].append(n)
-        for algorithm, desc, buildin in [
-                        ('insertionsort', 'insertion sort', False),
-                        ('mergesort', 'merge sort', False),
-                        ('heapsort', 'heap sort', False),
-                        ('quicksort', 'quick sort', False),
+        for algorithm, desc in [
+                        ('insertionsort', 'insertion sort'),
+                        ('mergesort', 'merge sort'),
+                        ('heapsort', 'heap sort'),
+                        ('quicksort', 'quick sort'),
+                        ('countingsort', 'counting sort'),
+                        ('radixsort', 'radix sort'),
+                        ('bucketsort', 'bucket sort'),
                         ]:
             # skip slow algorithms and set NaN
             if algorithm in skip_algorithm_list:
@@ -43,7 +51,7 @@ def get_performance_data():
             else:
                 duration = timeit.Timer(
                     algorithm + '({})'.format(a),
-                    '' if buildin else """from __main__ import {}""".format(algorithm)
+                    """from __main__ import {}""".format(algorithm)
                     ).timeit(number=100)
                 if desc not in data:
                     data[desc] = []

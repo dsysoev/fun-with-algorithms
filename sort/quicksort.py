@@ -36,8 +36,41 @@ def quick_sort(lst, start, end):
     # run for right half
     quick_sort(lst, new_pivot + 1, end)
 
+def quick_sort_median(lst, start, end):
+    """ quick sort algorithm use meadian value element"""
+
+    if start >= end:
+        return lst
+
+    # for list more than 30 elements
+    # use median value
+    elif end - start >= 30:
+        # create dict for select pivot element
+        # keys --> values of lst, values --> index in lst
+        median_values = {}
+        while len(median_values) < 3:
+            # select random element
+            rand = random.randint(start, end)
+            median_values[lst[rand]] = rand
+        # select median element
+        pivot_value = list(median_values.keys())[1]
+        # get pivot index
+        pivot = median_values[pivot_value]
+
+    else:
+        pivot = random.randint(start, end)
+
+    # swap pivot and last element into list
+    lst[-1], lst[pivot] = lst[-1], lst[pivot]
+    # regrouping the list
+    new_pivot = partition(lst, start, end)
+    # run recursive quick sort for left half
+    quick_sort_median(lst, start, new_pivot - 1)
+    # run for right half
+    quick_sort_median(lst, new_pivot + 1, end)
+
 def quick_sort_random(lst, start, end):
-    """ random quick sort algorithm use random element everytime"""
+    """ random quick sort algorithm use random element everytime """
     if start >= end:
         return lst
     # select random pivot element
@@ -61,6 +94,11 @@ def quicksort_random(lst):
     quick_sort_random(lst, 0, len(lst) - 1)
     return lst
 
+def quicksort_median(lst):
+    """ Implementation of quicksort algorithm with random pivot """
+    quick_sort_median(lst, 0, len(lst) - 1)
+    return lst
+
 if __name__ in "__main__":
 
     a = [2, 8, 7, 1, 3, 5, 6, 4]
@@ -68,3 +106,4 @@ if __name__ in "__main__":
     print('list            :', a)
     print('quicksort       :', quicksort(a), quicksort(a) == sorted(a))
     print('quicksort random:', quicksort_random(a), quicksort_random(a) == sorted(a))
+    print('quicksort median:', quicksort_median(a), quicksort_median(a) == sorted(a))

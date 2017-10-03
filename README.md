@@ -10,6 +10,9 @@ Implementation of simple algorithms in python
 | Merge Sort      | O(n*ln(n)) | O(n*ln(n))   |
 | Heap Sort       | O(n*ln(n)) | O(n*ln(n))   |
 | Quick Sort      | O(n^2)     | O(n*ln(n))   |
+| Counting Sort   | O(k + n)   | O(k + n)     |
+| Radix Sort      | O(d(k + n))| O(d(k + n))  |
+| Bucket Sort     | O(n^2)     | O(n)         |
 
 ## Matrix
 
