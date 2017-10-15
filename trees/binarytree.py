@@ -3,12 +3,16 @@ class Node:
     """ a node representation for binary search tree """
     def __init__(self, value, left=None, right=None, parent=None):
         self.value = value
-        self.leftChild = left
-        self.rightChild = right
+        self.left = left
+        self.right = right
         self.parent = parent
 
     def __str__(self):
-        return str(self.value) + ' (' + str(self.parent) + ')'
+        return str(self.value)
+
+    def verbose(self):
+        return '{} (parent:{} left:{} right:{})'.format(
+            self.value, self.parent, self.left, self.right)
 
 class Tree:
     """ Binary search tree implementation"""
@@ -29,20 +33,20 @@ class Tree:
             return None
         # going to left branch
         elif value < node.value:
-            if node.leftChild:
-                return self._add(node.leftChild, value)
+            if node.left is not None:
+                return self._add(node.left, value)
             else:
                 # add new Node if child is empty
-                node.leftChild = Node(value, parent=node)
-                return node.leftChild
+                node.left = Node(value, parent=node)
+                return node.left
         # going to right branch
         else:
-            if node.rightChild:
-                return self._add(node.rightChild, value)
+            # add new Node if child is empty
+            if node.right is None:
+                node.right = Node(value, parent=node)
+                return node.right
             else:
-                # add new Node if child is empty
-                node.rightChild = Node(value, parent=node)
-                return node.rightChild
+                return self._add(node.right, value)
 
     def search(self, value, node=None):
         """ return a Node with given value otherwise None"""
@@ -50,20 +54,12 @@ class Tree:
             node = self.root
         return self._search_iterative(node, value)
 
-    def _search_recursive(self, node, value):
-        if node is None or value == node.value:
-            return node
-        elif value < node.value:
-            return self._search(node.leftChild, value)
-        else:
-            return self._search(node.rightChild, value)
-
     def _search_iterative(self, node, value):
         while node is not None and value != node.value:
             if value < node.value:
-                node = node.leftChild
+                node = node.left
             else:
-                node = node.rightChild
+                node = node.right
         return node
 
     def rank(self, value):
@@ -73,13 +69,13 @@ class Tree:
     def _rank(self, node, value):
         if node is None:
             return 0
-        if value == node.root:
-            return 1 + self._rank(node.leftChild, value)
-        elif value > node.root:
-            return 1 + self._rank(node.leftChild, value) \
-                                    + self._rank(node.rightChild, value)
-        elif value < node.root:
-            return self._rank(node.leftChild, value)
+        elif value == node.value:
+            return 1 + self._rank(node.left, value)
+        elif value > node.value:
+            return 1 + self._rank(node.left, value) \
+                                    + self._rank(node.right, value)
+        elif value < node.value:
+            return self._rank(node.left, value)
         else:
             return 0
 
@@ -87,28 +83,32 @@ class Tree:
         """ return minimum value in tree """
         if not current:
             current = self.root
-        while current.leftChild is not None:
-            current = current.leftChild
+        while current.left is not None:
+            current = current.left
         return current
 
     def max(self, current=None):
         """ return maximum value in tree """
         if not current:
             current = self.root
-        while current.rightChild is not None:
-            current = current.rightChild
+        while current.right is not None:
+            current = current.right
         return current
 
     def successor(self, value):
         """ return a Node with nearest number that is more than given """
         current = self.search(value)
         if current is None:
-            return None
+            raise Exception(('a Node with value ({})'
+                             ' does not exist').format(value))
+        return self._successor(current)
 
-        if current.rightChild is not None:
-            return self.min(current.rightChild)
-        while current.parent is not None \
-                and current.parent.rightChild is current:
+    def _successor(self, current):
+
+        if current.right is not None:
+            return self.min(current.right)
+        while (current.parent is not None
+               and current.parent.right is current):
             current = current.parent
         return current.parent
 
@@ -116,126 +116,139 @@ class Tree:
         """ return a Node with nearest number that is less than given """
         current = self.search(value)
         if current is None:
-            return None
+            raise Exception(('a Node with value ({})'
+                             ' does not exist').format(value))
+        return self._precessor(current)
 
-        if current.leftChild is not None:
-            return self.max(current.leftChild)
-        while current.parent is not None and current.parent.leftChild is current:
+    def _precessor(self, current):
+
+        if current.left is not None:
+            return self.max(current.left)
+        while current.parent is not None and current.parent.left is current:
             current = current.parent
         return current.parent
 
     def transplant(self, node, newnode):
-        """ transplant NewNode to current Node """
+        """ transplant new node to current node """
         if node.parent is None:
             self.root = newnode
-        elif node == node.parent.leftChild:
-            node.parent.leftChild = newnode
+        elif node == node.parent.left:
+            node.parent.left = newnode
         else:
-            node.parent.rightChild = newnode
+            node.parent.right = newnode
         if newnode is not None:
             newnode.parent = node.parent
 
-    def delete(self, value, current=None):
+    def delete(self, value):
         """ Delete a Node with given value """
-        if current is None:
-            current = self.root
-        node = self.search(value, current)
+        node = self.search(value, self.root)
+        if node is None:
+            raise Exception(('a Node with value ({})'
+                             ' does not exist').format(value))
 
-        if node.leftChild is None:
-            self.transplant(node, node.rightChild)
-        elif node.rightChild is None:
-            self.transplant(node, node.leftChild)
+        return self._delete(node)
+
+    def _delete(self, node):
+
+        if node.left is None:
+            self.transplant(node, node.right)
+        elif node.right is None:
+            self.transplant(node, node.left)
         else:
-            successor = self.min(node.rightChild)
+            successor = self.min(node.right)
             if successor.parent != node:
-                self.transplant(successor, successor.rightChild)
-                successor.rightChild = node.rightChild
-                successor.rightChild.parent = successor
+                self.transplant(successor, successor.right)
+                successor.right = node.right
+                successor.right.parent = successor
             self.transplant(node, successor)
-            successor.leftChild = node.leftChild
-            successor.leftChild.parent = successor
+            successor.left = node.left
+            successor.left.parent = successor
+
+    def max_depth(self, root=None):
+        if root is None:
+            return 0
+        else:
+            return max(self.max_depth(root.left),
+                       self.max_depth(root.right)) + 1
+
+    def depth(self, node):
+        if node is None:
+            return 0
+        node_ = node
+        depth = 0
+        while node_ != self.root:
+            node_ = node_.parent
+            depth += 1
+        return depth
 
     def __str__(self):
-        """ string presentation of Binary Search Tree """
-        def _str(node):
-            if node is None:
-                return [], 0, 0
-            label = str(node.value)
-            # get lines, position and wigth for left and right child
-            leftLines, leftPos, leftWidth = _str(node.leftChild)
-            rightLines, rightPos, rightWidth = _str(node.rightChild)
-            # determine middle position
-            middle = max(rightPos + leftWidth - leftPos + 1, len(label), 2)
-            pos = leftPos + middle // 2
-            width = leftPos + middle + rightWidth - rightPos
-            # append spaces for left lines
-            while len(leftLines) < len(rightLines):
-                leftLines.append(' ' * leftWidth)
-            # append spaces for right lines
-            while len(rightLines) < len(leftLines):
-                rightLines.append(' ' * rightWidth)
-            # put label into center of string and add dots
-            label = label.center(middle, '_')
-            # create string
-            lines = [' ' * leftPos + label + ' ' * (rightWidth - rightPos),
-                     ' ' * leftPos + '/' + ' ' * (middle - 2) +
-                     '\\' + ' ' * (rightWidth - rightPos)]
-            spaceLine = ' ' * (width - leftWidth - rightWidth)
-            lines += [leftLine + spaceLine + rightLine
-                        for leftLine, rightLine in zip(leftLines, rightLines)]
+        node = self.min(self.root)
 
-            return lines, pos, width
+        sortnodes = []
+        maxnode = self.max(self.root)
+        maxdepth = self.max_depth(self.root)
 
-        if self.root is None: return '<empty tree>'
-        return '\n'.join(_str(self.root) [0])
+        while True:
+            sortnodes.append((node, self.depth(node)))
+            if node == maxnode:
+                break
+            node = self._successor(node)
+
+        strings = ['' for _ in range(maxdepth + 1)]
+
+        for node, rank in sortnodes:
+            for level in range(maxdepth + 1):
+                if rank == level:
+                    strings[level] += str(node)
+                else:
+                    strings[level] += ' ' * len(str(node))
+
+        return "\n".join(strings)
+
 
 if __name__ in "__main__":
 
     print('create empty tree')
     tree = Tree()
-    d = {}
-    for i in [10, 10, 0, 20, -10, 100]:
+    treeNodes = {}
+    for i in [10, -2, 20, 100, 101,
+              2, 3, 4, 5, 6, 90,
+              80, -10, -20, 15]:
         print('add {}'.format(i))
-        d[i] = tree.add(i)
-
-    print('initial tree:\n', tree, '\n')
-
-    for i in [3]:
-        print('add {}'.format(i))
-        d[i] = tree.add(i)
+        treeNodes[i] = tree.add(i)
 
     print('initial tree:\n', tree, '\n')
 
     tree2 = Tree()
-    d2 = {}
-    for i in [1, 7, 4 -1]:
-        d2[i] = tree2.add(i)
+    tree2Nodes = {}
+    for i in [0, 1, 7, 14, 11, -1]:
+        tree2Nodes[i] = tree2.add(i)
     print()
 
     print('another tree:\n', tree2, '\n')
 
     print('transplant element 1 from another tree to element 3 of initial tree')
-    tree.transplant(d[3], d2[1])
+    tree.transplant(treeNodes[3], tree2Nodes[1])
 
     print(tree)
     print()
 
-    for i in [3, 0, 10]:
+    for i in [2, 20, 10]:
         print('delete element {} from tree'.format(i))
         tree.delete(i)
 
         print(tree)
         print()
 
-    for i in [-6, 20, 100]:
+    for i in [-6, 90, 100]:
         print('search value {}:'.format(i), tree.search(i))
     print()
 
-    for i in [20, 100, 0]:
+    for i in [15, 100, -2]:
         print('successor value {}:'.format(i), tree.successor(i))
     print()
 
-    for i in [-10, 10, 0]:
+    for i in [-10, 15, -2]:
         print('preccessor value {}:'.format(i), tree.preccessor(i))
     print()
 
