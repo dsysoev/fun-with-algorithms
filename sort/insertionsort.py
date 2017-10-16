@@ -1,18 +1,18 @@
-# coding: utf-8
 
-def insertionsort(a):
-    """ Function to sort an array using insertion sort algorithm """
+
+def insertionsort(lst):
+    """ Implementation of insertion sort algorithm """
     # start from second element of list
-    for j in range(1, len(a)):
-        key = a[j]
+    for j in range(1, len(lst)):
+        key = lst[j]
         i = j - 1
-        # insertion a[j] into sorted list a
-        while i >= 0 and a[i] > key:
-            a[i + 1] = a[i]
+        # insertion j-th into sorted list
+        while i >= 0 and lst[i] > key:
+            lst[i + 1] = lst[i]
             # select the previous item
             i -= 1
-        a[i + 1] = key
-    return a
+        lst[i + 1] = key
+    return lst
 
 if __name__ in "__main__":
 
