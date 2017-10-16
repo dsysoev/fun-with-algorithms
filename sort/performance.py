@@ -13,8 +13,8 @@ import tempfile
 
 import pandas as pd
 
-from insertion import insertionsort
-from merge import mergesort
+from insertionsort import insertionsort
+from mergesort import mergesort
 from heapsort import heapsort
 from quicksort import quicksort
 from quicksort import quicksort_random
