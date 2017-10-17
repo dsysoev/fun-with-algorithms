@@ -8,6 +8,10 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+import matplotlib
+
+matplotlib.style.use('seaborn')
+
 from multiplication import naive_square_matrix_product
 from multiplication import strassen_square_matrix_product
 
@@ -53,10 +57,8 @@ def plot_chart():
         (results[name]).plot(ax=ax)
 
     ax.set_title('Comparison of matrix multiplication algorithms')
-    ax.set_ylabel('time duration')
+    ax.set_ylabel('time duration, s')
     ax.set_xlabel('shape of square matrix')
-    ax.set_xscale('log')
-    ax.set_yscale('log')
     ax.legend()
 
     plt.show()

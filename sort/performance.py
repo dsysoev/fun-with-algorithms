@@ -86,6 +86,7 @@ def plot_chart():
 
     ax1.set_title('Comparison of execution speed for sort algorithms (for 100 launch)')
     ax1.set_ylabel('duration, s')
+    ax1.set_xscale('log')
     ax2.set_ylabel('duration / length of array')
     ax2.set_xscale('log')
     ax2.set_yscale('log')
