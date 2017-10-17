@@ -239,6 +239,110 @@ class RedBlackTree:
         y.right = x
         x.parent = y
 
+    def transplant(self, node, newnode):
+        """ transplant new node to current node """
+        if node.parent is None:
+            self.root = newnode
+        elif node == node.parent.left:
+            node.parent.left = newnode
+        else:
+            node.parent.right = newnode
+        if newnode is not None:
+            newnode.parent = node.parent
+
+    def delete(self, value):
+        """ delete value from tree """
+        node = self.search(value)
+        return self.__delete(node)
+
+    def __delete(self, node):
+        y = node
+        color = y.color
+        if node.left is None:
+            x = node.right
+            self.transplant(node, node.right)
+        elif node.right is None:
+            x = node.left
+            self.transplant(node, node.left)
+        else:
+            y = self.min(node.right)
+            color = y.color
+            x = y.right
+            if x is not None and x.parent is not None and y.parent == node:
+                x.parent = y
+            else:
+                self.transplant(y, y.right)
+                y.right = node.right
+                y.right.parent = y
+
+            self.transplant(node, y)
+            y.left = node.left
+            y.left.parent = y
+            y.color = node.color
+
+        if color == Node.BLACK:
+            self.__delete_fixup(x)
+
+    def __delete_fixup(self, x):
+        """ restore red-black tree properties after insert new node """
+        while x != self.root and x.color == Node.BLACK:
+            # we have a violation
+            if x == x.parent.left:
+                # we are on left branch
+                y = x.parent.right
+                if y is not None and y.color == Node.RED:
+                    # parent is red
+                    y.color = Node.BLACK
+                    x.parent.color = Node.RED
+                    x = x.parent.parent
+                    self.__left_rotate(x.parent)
+                    y = x.parent.right
+
+                if y.left.color == Node.BLACK and y.right.color == Node.BLACK:
+                    y.color = Node.RED
+                    x = x.parent
+                else:
+                    if y.right.color == Node.BLACK:
+                        y.left.color = Node.BLACK
+                        y.color = Node.RED
+                        self.__right_rotate(y)
+                        y = x.parent.right
+                    y.color = x.parent.color
+                    x.parent.color = Node.BLACK
+                    y.right.color = Node.BLACK
+
+                    self.__left_rotate(x.parent)
+                    x = self.root
+
+            else:
+
+                y = x.parent.left
+                if y is not None and y.color == Node.RED:
+                    # parent is red
+                    y.color = Node.BLACK
+                    x.parent.color = Node.RED
+                    x = x.parent.parent
+                    self.__right_rotate(x.parent)
+                    y = x.parent.left
+
+                if y.right.color == Node.BLACK and y.left.color == Node.BLACK:
+                    y.color = Node.RED
+                    x = x.parent
+                else:
+                    if y.left.color == Node.BLACK:
+                        y.right.color = Node.BLACK
+                        y.color = Node.RED
+                        self.__left_rotate(y)
+                        y = x.parent.left
+                    y.color = x.parent.color
+                    x.parent.color = Node.BLACK
+                    y.left.color = Node.BLACK
+
+                    self.__right_rotate(x.parent)
+                    x = self.root
+
+        x.color = Node.BLACK
+
     def __str__(self):
         """ return a string representation of Tree """
         # a variable to hold the node in ascending order
@@ -271,7 +375,11 @@ if __name__ in "__main__":
 
     tree = RedBlackTree()
 
-    for i in [0, -12, -8]:
+    for i in [0, -12, -8, 10, -100]:
         print('insert {} to tree'.format(i))
         tree.insert(i)
     print(tree)
+
+    for i in [-100, -8]:
+        tree.delete(i)
+        print(tree)
