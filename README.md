@@ -54,6 +54,7 @@ Useful links:
 ### Linked Lists
 
 - [Implementing an Unordered List: Linked Lists](http://interactivepython.org/courselib/static/pythonds/BasicDS/ImplementinganUnorderedListLinkedLists.html)
+- [The Linked List](https://code.tutsplus.com/tutorials/the-linked-list--cms-20660)
 
 ### Binary Tree
 
