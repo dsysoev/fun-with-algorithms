@@ -34,7 +34,7 @@ class LinkedList(object):
         # update head
         self.head = position * 3
 
-    def get(self, key, default=None):
+    def search(self, key, default=None):
         """ get value by key from linked list
             if key does not exist in table return default value (None)
         """
@@ -102,7 +102,7 @@ if __name__ in '__main__':
     print('linked list: ', LINKED_LIST)
     # get key
     for k in [10, 20, 30]:
-        print('get key {}:'.format(k), LINKED_LIST.get(k))
+        print('search key {}:'.format(k), LINKED_LIST.search(k))
     # remove key
     for k in [10, 30]:
         LINKED_LIST.remove(k)
