@@ -2,6 +2,8 @@
 
 from __future__ import print_function
 
+import math
+
 class HashTable(object):
     """ dynamic hash table implementation with open addressing """
 
@@ -92,9 +94,10 @@ class HashTable(object):
         """
         if self.length // self.capacity <= 1 / 4:
             # decrease capacity to next power of two elements
-            capacity = 2 ** next_powerof2(self.length)
-            if capacity == 0:
+            if self.length == 0:
                 capacity = 1
+            else:
+                capacity = 2 ** math.ceil(math.log(self.length, 2))
             self._change_capacity(capacity)
         # remove key
         return self._remove(key)
@@ -130,12 +133,6 @@ class HashTable(object):
                 continue
             string += str(key) + ': ' + str(self.values[i]) + ', '
         return '{' + string[:-2] + '}'
-
-def next_powerof2(value):
-    """ next power of 2 number """
-    if value // 2 == 0:
-        return 1
-    return 1 + next_powerof2(value // 2)
 
 def hash_function(key, item, size):
     """ hash function = (h1(key) + item * h2(key)) % size """
