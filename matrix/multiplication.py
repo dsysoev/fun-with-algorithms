@@ -1,9 +1,10 @@
 # coding: utf-8
 
+
 def naive_square_matrix_product(A, B):
     """ Implementation of naive squre matrix multiplication algorithm """
     n = len(A)
-    C = [[0 for j in range(0, n)] for i in range(0, n)]
+    C = [[0 for _ in range(n)] for _ in range(n)]
 
     for i in range(n):
         for j in range(n):
@@ -17,18 +18,10 @@ def print_mx(matrix):
         print("\t".join(map(str, line)))
 
 def subtract(A, B):
-    num = len(A[0])
-    a_ = [val for sub in A for val in sub]
-    b_ = [val for sub in B for val in sub]
-    ab_ = [x - y for x, y in zip(a_, b_)]
-    return [ab_[i * num:num + i * num] for i in range(num)]
+    return [[x - y for x, y in zip(a, b)] for a, b in zip(A, B)]
 
 def add(A, B):
-    num = len(A[0])
-    a_ = [val for sub in A for val in sub]
-    b_ = [val for sub in B for val in sub]
-    ab_ = [x + y for x, y in zip(a_, b_)]
-    return [ab_[i * num:num + i * num] for i in range(num)]
+    return [[x + y for x, y in zip(a, b)] for a, b in zip(A, B)]
 
 def strassen_square_matrix_product(A, B, leaf_size=64):
     """ Implementation of the strassen algorithm for square matrixes"""
