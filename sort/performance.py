@@ -115,8 +115,8 @@ def main():
 if __name__ in "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--force', action='store_true')
-    parser.add_argument('--max_degree', type=int, default=15)
-    parser.add_argument('--max_duration_time', type=float, default=10.)
+    parser.add_argument('--max_degree', type=int, default=13)
+    parser.add_argument('--max_duration_time', type=float, default=1.)
     parser.add_argument(
         '--results_file',
         type=str,
