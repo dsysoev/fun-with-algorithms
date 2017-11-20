@@ -74,7 +74,7 @@ class Stack(object):
 
     def count(self):
         """ number of elements into Stack """
-        return self.head
+        return self.head + 1
 
     def __str__(self):
         """ string representation of the stack """
@@ -114,6 +114,7 @@ if __name__ in '__main__':
         STACK.push(VALUE)
     print('show last item: {}'.format(STACK.peek()))
     print('show stack: {}'.format(STACK))
+    print('number of items: {}'.format(STACK.count()))
     for _ in range(5):
         VALUE = STACK.pop()
         print('pop {}'.format(VALUE))
