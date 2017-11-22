@@ -24,10 +24,11 @@ class Queue(object):
         In a FIFO data structure, the first element added to the queue
         will be the first one to be removed.
 
-        maxsize : determine maximum items into queue
+        maxsize : determine maximum items into queue. If maxsize is less than
+                  or equal to zero, the queue size is infinite
     """
 
-    def __init__(self, maxsize):
+    def __init__(self, maxsize=0):
         self.tail = -1
         self.data = []
         self.maxsize = maxsize - 1
@@ -40,7 +41,7 @@ class Queue(object):
 
     def is_full(self):
         """ return True if the queue is full otherwise return False """
-        if self.tail == self.maxsize:
+        if self.maxsize > -1 and self.tail == self.maxsize:
             return True
         return False
 
@@ -73,7 +74,7 @@ class Queue(object):
         return str(self.data)
 
 if __name__ in '__main__':
-    QUEUE = Queue(maxsize=10)
+    QUEUE = Queue()
     for VALUE in range(5):
         print('enqueue {}'.format(VALUE))
         QUEUE.enqueue(VALUE)
