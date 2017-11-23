@@ -22,7 +22,7 @@ class Graph(object):
     def __str__(self):
         """ string representation of Graph """
         string = ''
-        for index, lst in enumerate(self.graph):
+        for index, lst in sorted(self.graph.items()):
             strnode = " ".join([str(i) for i in lst])
             string += "node {}: {}\n".format(index, strnode)
         return string[:-1]
@@ -40,28 +40,28 @@ class Graph(object):
         -------
 
         out : (list, list)
-              The lists of distance and paths for each node
+              The tuple (distance, paths) for each node
 
         """
         # palette: 0 - WHITE, 1 - GRAY, 2 - BLACK
-        color = [0] * len(self.graph)
+        color = {k: 0 for k in self.graph}
         # set black color for source node
         color[source] = 2
-        distance = [float('Inf')] * len(self.graph)
+        distance = {k: float('Inf') for k in self.graph}
         # set zero distance for source node
         distance[source] = 0
         # set infinite for all paths by default
-        paths = [[] for _ in range(len(self.graph))]
+        paths = {k: [] for k in self.graph}
         # set init queue
         queue_ = queue.Queue()
         # enqueue source node
         queue_.put(source)
         while not queue_.empty():
             node = queue_.get()
-            # check all connection
-            for current in self.graph[node]:
-                # if color is white
+            # use get method for node which does not presented in graph
+            for current in self.graph.get(node, []):
                 if color[current] == 0:
+                    # color is white
                     # set gray color
                     color[current] = 1
                     # apply distance
@@ -72,10 +72,10 @@ class Graph(object):
                     # enqueue current node
                     queue_.put(current)
             # set black color for node
-            color[node] = 2
+            # color[node] = 2
         # set [None] for source node
         paths[source] = [None]
-        for index, node in enumerate(paths):
+        for index, node in paths.items():
             if node == []:
                 # set paths as infinite
                 paths[index] = [float('Inf')]
@@ -92,11 +92,18 @@ class Graph(object):
         return distance[target]
 
 if __name__ in '__main__':
-    GRAPH_DATA = [(1, 4), (0, 4, 2, 3), (1, 3), (1, 4, 2), (3, 0, 1), ()]
+    GRAPH_DATA = {'A': ['B', 'C', 'E'],
+                  'B': ['A', 'D', 'E'],
+                  'C': ['A', 'F', 'G'],
+                  'D': ['B'],
+                  'E': ['A', 'B', 'D'],
+                  'F': ['C'],
+                  'G': ['C'],
+                  'H': []}
     GRAPH = Graph(GRAPH_DATA)
     print("Show Graph:\n{}\n".format(GRAPH))
 
-    for SRC, DEST in [(0, 3), (0, 0), (5, 0)]:
+    for SRC, DEST in [('A', 'F'), ('G', 'B'), ('H', 'A'), ('D', 'D')]:
         print("The shortest path from {} to {} node: {}".format(
             SRC, DEST, GRAPH.get_short_path(SRC, DEST)))
         print("Minimun number of edges from {} to {} node: {}".format(
