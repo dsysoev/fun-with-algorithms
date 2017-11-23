@@ -43,15 +43,21 @@ class Graph(object):
               The tuple (distance, paths) for each node
 
         """
+        unique = []
+        for node, lst in self.graph.items():
+            unique.append(node)
+            unique.extend(lst)
+        # create set of unique nodes
+        unique = set(unique)
         # palette: 0 - WHITE, 1 - GRAY, 2 - BLACK
-        color = {k: 0 for k in self.graph}
+        color = {k: 0 for k in unique}
         # set black color for source node
         color[source] = 2
-        distance = {k: float('Inf') for k in self.graph}
+        distance = {k: float('Inf') for k in unique}
         # set zero distance for source node
         distance[source] = 0
         # set infinite for all paths by default
-        paths = {k: [] for k in self.graph}
+        paths = {k: [] for k in unique}
         # set init queue
         queue_ = queue.Queue()
         # enqueue source node
@@ -72,7 +78,7 @@ class Graph(object):
                     # enqueue current node
                     queue_.put(current)
             # set black color for node
-            # color[node] = 2
+            color[node] = 2
         # set [None] for source node
         paths[source] = [None]
         for index, node in paths.items():
@@ -97,7 +103,6 @@ if __name__ in '__main__':
                   'C': ['A', 'F', 'G'],
                   'D': ['B'],
                   'E': ['A', 'B', 'D'],
-                  'F': ['C'],
                   'G': ['C'],
                   'H': []}
     GRAPH = Graph(GRAPH_DATA)
