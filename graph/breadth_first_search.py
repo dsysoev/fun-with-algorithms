@@ -30,9 +30,9 @@ class Graph(object):
 
         Parameters
         ----------
-        source : int, str
+        source : key in graph dict
                  name of initial node
-        target : int, str, optional
+        target : optional
                  name of target node
 
         Returns

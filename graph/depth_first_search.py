@@ -30,9 +30,9 @@ class Graph(object):
 
         Parameters
         ----------
-        source : var
+        source : key in graph dict
                  name of initial node
-        target : int, str, optional
+        target : optional
                  name of target node
 
         Returns
@@ -56,7 +56,7 @@ class Graph(object):
         return visited
 
     def dfs_path(self, source, target):
-        """ return short path from source node to target """
+        """ depth-first search path from source to target node """
         dfs_path = self.dfs(source, target)
         if source == target:
             return [source]
@@ -72,7 +72,7 @@ class Graph(object):
                 return [float('Inf')]
 
     def dfs_edges(self, source, target):
-        """ return minimum number of edges between source node and target """
+        """ number of edges from source to target node """
         dfs_path = self.dfs_path(source, target)
         if dfs_path == [float('Inf')]:
             # path does not found
