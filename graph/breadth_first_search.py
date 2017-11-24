@@ -7,95 +7,78 @@ https://en.wikipedia.org/wiki/Breadth-first_search
 
 from __future__ import print_function
 
-import queue
-
 
 class Graph(object):
     """ Simple implementation of Undirected Graph
 
-    graph : list of lists
-            list of pairs of connected edges
+    graph : dict
+            key: node, values: list of connected nodes
     """
     def __init__(self, graph):
         self.graph = graph
 
     def __str__(self):
-        """ string representation of Graph """
+        """ string representation of the graph """
         string = ''
         for index, lst in sorted(self.graph.items()):
             strnode = " ".join([str(i) for i in lst])
             string += "node {}: {}\n".format(index, strnode)
         return string[:-1]
 
-    def BFS(self, source):
+    def bfs(self, source, target=None):
         """ Breadth-first search implementation
 
         Parameters
         ----------
-
-        source : int
-                 number of initial node
+        source : int, str
+                 name of initial node
+        target : int, str, optional
+                 name of target node
 
         Returns
         -------
-
-        out : (list, list)
-              The tuple (distance, paths) for each node
+        out : list
+              list of visited nodes
 
         """
-        unique = []
-        for node, lst in self.graph.items():
-            unique.append(node)
-            unique.extend(lst)
-        # create set of unique nodes
-        unique = set(unique)
-        # palette: 0 - WHITE, 1 - GRAY, 2 - BLACK
-        color = {k: 0 for k in unique}
-        # set black color for source node
-        color[source] = 2
-        distance = {k: float('Inf') for k in unique}
-        # set zero distance for source node
-        distance[source] = 0
-        # set infinite for all paths by default
-        paths = {k: [] for k in unique}
-        # set init queue
-        queue_ = queue.Queue()
-        # enqueue source node
-        queue_.put(source)
-        while not queue_.empty():
-            node = queue_.get()
-            # use get method for node which does not presented in graph
-            for current in self.graph.get(node, []):
-                if color[current] == 0:
-                    # color is white
-                    # set gray color
-                    color[current] = 1
-                    # apply distance
-                    distance[current] = distance[node] + 1
-                    # add node path and current name to current node
-                    paths[current].extend(paths[node])
-                    paths[current].append(current)
-                    # enqueue current node
-                    queue_.put(current)
-            # set black color for node
-            color[node] = 2
-        # set [None] for source node
-        paths[source] = [None]
-        for index, node in paths.items():
-            if node == []:
-                # set paths as infinite
-                paths[index] = [float('Inf')]
-        return distance, paths
+        # create visited list and queue
+        visited, queue = list(), [source]
+        while queue:
+            # popleft node from queue
+            node = queue[0]
+            del queue[0]
+            if node not in visited:
+                # add node to visited
+                visited.append(node)
+                # add nodes to queue
+                queue.extend(self.graph[node])
+            if target is not None and node == target:
+                break
+        return visited
 
-    def get_short_path(self, source, target):
-        """ return short path from source node to target """
-        _, paths = self.BFS(source)
-        return paths[target]
+    def bfs_path(self, source, target):
+        """ breadth-first search path from source to target node """
+        bfs_path = self.bfs(source, target)
+        if source == target:
+            return [source]
+        elif len(bfs_path) == 1:
+            # path does not found
+            return [float('Inf')]
+        else:
+            if source == bfs_path[0] and target == bfs_path[-1]:
+                # correct path
+                return bfs_path
+            else:
+                # path does not found
+                return [float('Inf')]
 
-    def get_num_edges(self, source, target):
-        """ return minimum number of edges between source node and target """
-        distance, _ = self.BFS(source)
-        return distance[target]
+    def bfs_edges(self, source, target):
+        """ number of edges from source to target node """
+        bfs_path = self.bfs_path(source, target)
+        if bfs_path == [float('Inf')]:
+            # path does not found
+            return float('Inf')
+        return len(bfs_path) - 1
 
 if __name__ in '__main__':
     GRAPH_DATA = {'A': ['B', 'C', 'E'],
@@ -104,12 +87,15 @@ if __name__ in '__main__':
                   'D': ['B'],
                   'E': ['A', 'B', 'D'],
                   'G': ['C'],
-                  'H': []}
+                  'F': ['C'],
+                  'H': [],
+                  'J': ['K', 'M'],
+                  'K': ['M'],
+                  'M': ['K']}
     GRAPH = Graph(GRAPH_DATA)
     print("Show Graph:\n{}\n".format(GRAPH))
-
-    for SRC, DEST in [('A', 'F'), ('G', 'B'), ('H', 'A'), ('D', 'D')]:
-        print("The shortest path from {} to {} node: {}".format(
-            SRC, DEST, GRAPH.get_short_path(SRC, DEST)))
-        print("Minimun number of edges from {} to {} node: {}".format(
-            SRC, DEST, GRAPH.get_num_edges(SRC, DEST)))
+    for SRC, DEST in [('A', 'G'), ('G', 'B'), ('H', 'A'), ('D', 'D')]:
+        print("The bfs path from {} to {} node: {}".format(
+            SRC, DEST, GRAPH.bfs_path(SRC, DEST)))
+        print("number of edges from {} to {} node: {}".format(
+            SRC, DEST, GRAPH.bfs_edges(SRC, DEST)))
