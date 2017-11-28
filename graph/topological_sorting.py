@@ -11,8 +11,11 @@ from __future__ import print_function
 class Graph(object):
     """ Simple implementation of directed acyclic graph
 
-    graph : dict
-            key: node, values: list of connected nodes
+    nodes : set
+            set of all nodes in the graph
+    dependencies : list
+            list of tuples (node1, node2) which show connection
+            between nodes of the graph
     """
     def __init__(self, nodes, dependencies):
         self.nodes = nodes
