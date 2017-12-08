@@ -1,40 +1,60 @@
 # coding: utf-8
 
-def mergesort(x):
-    """ Function to sort an array using merge sort algorithm """
-    if len(x) == 0 or len(x) == 1:
-        return x
-    else:
-        middle = int(len(x) / 2)
-        # split the list into 2 branches
-        a = mergesort(x[:middle])
-        b = mergesort(x[middle:])
-    # merge 2 branches
-    return merge(a, b)
+"""
+Merge sort implementation
+https://en.wikipedia.org/wiki/Merge_sort
+"""
 
-def merge(a, b):
-    """ Function to merge two arrays """
+from __future__ import print_function
 
-    c = []
-    while len(a) != 0 and len(b) != 0:
 
-        if a[0] < b[0]:
-            c.append(a[0])
-            a.remove(a[0])
+def mergesort(lst):
+    """ Function to sort an array using merge sort algorithm
+
+    Parameters
+    ----------
+    lst : list
+          sorting list
+
+    Returns
+    -------
+    out : list
+          sorted list
+
+    """
+    if len(lst) < 2:
+        return lst
+    # determine middle element in the list
+    middle = len(lst) // 2
+    # split the list into 2 list
+    # and sort it
+    lst1 = mergesort(lst[:middle])
+    lst2 = mergesort(lst[middle:])
+    # merge 2 lists
+    return merge(lst1, lst2)
+
+def merge(lst1, lst2):
+    """ Function to merge two sorted lists into list """
+    lst = []
+    while len(lst1) != 0 and len(lst2) != 0:
+        # loop until lists are not empty
+        if lst1[0] < lst2[0]:
+            # append lower element to list
+            lst.append(lst1[0])
+            # remove it
+            lst1.remove(lst1[0])
         else:
-            c.append(b[0])
-            b.remove(b[0])
-
-    if len(a) == 0:
-        c += b
+            # append element and remove it
+            lst.append(lst2[0])
+            lst2.remove(lst2[0])
+    # adds the rest of the list
+    if len(lst1) == 0:
+        lst += lst2
     else:
-        c += a
-
-    return c
+        lst += lst1
+    return lst
 
 if __name__ in "__main__":
-
-    a = [1, 0, 2, 4, 5, 6, 2, 7, 9, 1, 3, 8, -1]
-
-    print('list      :', a)
-    print('merge sort:', mergesort(a), mergesort(a) == sorted(a))
+    LIST = [1, 0, 2, 4, 5, 6, 2, 7, 9, 1, 3, 8, -1]
+    print('list      :', LIST)
+    print('merge sort:', mergesort(LIST))
