@@ -1,16 +1,17 @@
 # Fun with algorithms
 
+![](https://mitpress.mit.edu/sites/default/files/9780262033848.jpg)
+
 This repository was created during the study of [Introduction to Algorithms, Third Edition By Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest and Clifford Stein](https://mitpress.mit.edu/books/introduction-algorithms) book.
 
 A well-written book with detailed implementation of algorithms.
 
-## Use Python 3
+List of algorithms presented in the book.
 
-~~~bash
-pip install -r requirements.txt
-~~~
+- Chapter 1.
+  - [Insertion sort](sort/insertionsort.py)
 
-## Sort algorithms comparison
+### Sort algorithms comparison
 
 Table of complexity of different sorting algorithms:
 
