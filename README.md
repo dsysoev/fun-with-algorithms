@@ -23,7 +23,7 @@ List of algorithms presented in the book.
     - Hire assistant problem.
     - Birthday problem.
 - Chapter 6.
-    - Max Heap
+    - [Max Heap](queue/maxheap.py)
     - [Heap sort](sort/heapsort.py)
     - Priority queue
 - Chapter 7.
