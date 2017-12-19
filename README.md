@@ -94,9 +94,13 @@ List of algorithms presented in the book.
     - Relabel-to-front algorithm
 - Chapter 27.
     - [Fibonacci number using multithreading](multithreading/fib.py)
-    - Matrix multiplication using multithreading
+    - [Matrix multiplication using multithreading](multithreading/matrixmultiply.py)
     - Multithreading Strassen algorithm
     - Multithreading merge sort
+- Chapter 28.
+    - LU decomposition
+    - [LUP decomposition](matrix/lupdecomposition.py)
+    - Invertible matrix
 
 ## Sort algorithms comparison
 
