@@ -60,7 +60,7 @@ List of algorithms presented in the book.
     - Optimal binary search tree
     - [Edit distance](dynamicprogramming/edit_distance.py)
 - Chapter 16.
-    - Activity selection problem.
+    - [Activity selection problem.](greedy/activity_selection.py)
     - [Knapsack problem.](greedy/knapsack_problem.py)
     - Huffman coding.
 - Chapter 17.
