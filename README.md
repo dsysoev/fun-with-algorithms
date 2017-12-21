@@ -101,6 +101,12 @@ List of algorithms presented in the book.
     - LU decomposition
     - [LUP decomposition](matrix/lupdecomposition.py)
     - Invertible matrix
+- Chapter 29.
+    - Simplex algorithm.
+- Chapter 30.
+    - [Recursive FFT.](fft/fft.py)
+    - Iterative FFT.
+    - Parallel FFT.
 
 ## Sort algorithms comparison
 
