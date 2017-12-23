@@ -107,6 +107,18 @@ List of algorithms presented in the book.
     - [Recursive FFT.](fft/fft.py)
     - Iterative FFT.
     - Parallel FFT.
+- Chapter 31.
+    - [Euclid algorithm.](other/greatestcommondivisor.py)
+    - Modular exponentiation.
+    - RSA algorithm.
+    - Pseudoprime.
+    - Miller–Rabin primality test.
+    - Pollard's rho algorithm.
+    - Binary GCD algorithm.
+- Chapter 32.
+    - [String searching algorithm.](string/stringsearch.py)
+    - Rabin–Karp algorithm.
+    - Knuth–Morris–Pratt algorithm.
 
 ## Sort algorithms comparison
 
