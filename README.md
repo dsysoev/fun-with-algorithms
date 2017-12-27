@@ -119,6 +119,16 @@ List of algorithms presented in the book.
     - [String searching algorithm.](string/stringsearch.py)
     - Rabin–Karp algorithm.
     - Knuth–Morris–Pratt algorithm.
+- Chapter 33.
+    - Line segment intersection.
+    - Graham scan.
+    - Gift wrapping algorithm.
+- Chapter 34.
+- Chapter 35.
+    - Approximate vertex cover.
+    - Approximate travelling salesman problem.
+    - Greedy set cover.
+    - Exact subset sum.
 
 ## Sort algorithms comparison
 
