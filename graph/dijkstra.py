@@ -35,7 +35,7 @@ def dijkstra(edges, source, target):
     for src, dest, weight in edges:
         if src not in graph:
             graph[src] = []
-        graph[src].append((dest, int(weight)))
+        graph[src].append((dest, weight))
     # set a queue
     # weight, source node, path from source node
     queue = [(0, source, [source])]
@@ -96,7 +96,7 @@ if __name__ == "__main__":
     ]
     for SRC, DEST, MINLEN in [
         ('s', 'z', 2), ('a', 'z', float('Inf')), ('s', 's', 0)]:
-        
+
         LEN, PATH = dijkstra(EDGES, SRC, DEST)
         print("Length of the path from '{}' to '{}' = {}, ({})"
             .format(SRC, DEST, LEN, LEN == MINLEN))
