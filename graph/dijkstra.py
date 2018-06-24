@@ -11,8 +11,6 @@ from __future__ import print_function
 def dijkstra(edges, source, target):
     """ Dijkstra's algorithm
 
-    The weight between nodes should have positive value
-
     Parameters
     ----------
     edges : list of tuples
@@ -30,37 +28,58 @@ def dijkstra(edges, source, target):
           tuple (length, path)
 
     """
+    # determine the graph as dict where:
+    # key - source node and
+    # item - list of [(destination, weight), ...]
     graph = {}
-    # determine the dict
-    # where key - source node and
-    # items - list of [(weight, destination), ...]
     for src, dest, weight in edges:
         if src not in graph:
             graph[src] = []
-        graph[src].append((weight, dest))
+        graph[src].append((dest, int(weight)))
     # set a queue
-    # weight, source node, path
-    queue = [(0, source, ())]
-    # initialize visited
-    visited = set()
+    # weight, source node, path from source node
+    queue = [(0, source, [source])]
+    # initialize visited nodes
+    # visited nodes - nodes with a known shortest path
+    # key - visited node
+    # item - (cost, path)
+    visited = dict()
+
     while queue:
         # get item from queue
         cost, src, path = queue.pop()
         if src not in visited:
-            # this is a new node
-            visited.add(src)
-            # add src node to the path
-            path = (path, src)
-            if src == target:
-                # target node was reached
-                return cost, path
-            # loop for all connected nodes to src node
-            for weight, dest in graph.get(src, ()):
-                if dest not in visited:
-                    # we find new way
-                    # add to the queue
-                    queue.insert(0, (cost + weight, dest, path))
-    return float("inf"), ()
+            # this is a new visited node
+            visited[src] = (cost, path)
+
+        if src == target:
+            # target node was reached
+            return cost, path
+
+        # set initial weight, destination node and path
+        min_weight, min_dest, min_path = float('Inf'), None, None
+        # loop for all visited nodes
+        for src_, (cost_, path_) in visited.items():
+            # find a shortest path
+            # from src node to the nearest node
+            for dest, weight in graph.get(src_, ()):
+                if dest in visited:
+                    # skip nodes with a known shortest path
+                    continue
+                # calculate current cost
+                current_cost = cost_ + weight
+                if current_cost < min_weight:
+                    min_weight, min_dest, min_path = current_cost, dest, path_
+
+        if min_dest is not None:
+            # we find shortest path to new node
+            # shortest path was updated
+            path = min_path + [min_dest]
+            # add to the queue
+            queue.insert(0, (min_weight, min_dest, path))
+
+    # Return infinity if the target node is not reached
+    return float('Inf'), []
 
 if __name__ == "__main__":
     EDGES = [
@@ -75,7 +94,10 @@ if __name__ == "__main__":
         ('z', 's', 2),
         ('z', 'x', 7)
     ]
-    for SRC, DEST in [('s', 'z'), ('a', 'z'), ('s', 's')]:
+    for SRC, DEST, MINLEN in [
+        ('s', 'z', 2), ('a', 'z', float('Inf')), ('s', 's', 0)]:
+        
         LEN, PATH = dijkstra(EDGES, SRC, DEST)
-        print("Length of the path from '{}' to '{}' = {}".format(SRC, DEST, LEN))
+        print("Length of the path from '{}' to '{}' = {}, ({})"
+            .format(SRC, DEST, LEN, LEN == MINLEN))
         print("Path from '{}' to '{}': {}".format(SRC, DEST, PATH))
