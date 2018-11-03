@@ -169,6 +169,7 @@ python matrix/performance.py
 ## Additional
 
 - [Performance comparison finding Fibonacci number](fibonacci/performance.py)
+- [Performance of basic math operation](operations/performance.py)
 
 ## Useful links:
 
