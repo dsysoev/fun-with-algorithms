@@ -165,6 +165,11 @@ python matrix/performance.py
 
 ![Matrix multiplication performance](images/matrix-performance.png)
 
+
+## Additional
+
+- [Performance comparison finding Fibonacci number](fibonacci/performance.py)
+
 ## Useful links:
 
 - [Performance comparison Naive and Strassen algorithms in Python, Java and C++](https://martin-thoma.com/strassen-algorithm-in-python-java-cpp/)
