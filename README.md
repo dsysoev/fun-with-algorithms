@@ -11,124 +11,124 @@ List of algorithms presented in the book.
 - Chapter 1.
   - [Insertion sort](sort/insertionsort.py)
 - Chapter 2.
-    - [Merge sort](sort/mergesort.py)
-    - Bubble sort
+  - [Merge sort](sort/mergesort.py)
+  - Bubble sort
 - Chapter 3.
-    - Fibonacci numbers
+  - Fibonacci numbers
 - Chapter 4.
-    - Maximum subarray problem
-    - [Square matrix multiply](matrix/multiplication.py)
-    - [Strassen algorithm](matrix/multiplication.py)
+  - Maximum subarray problem
+  - [Square matrix multiply](matrix/multiplication.py)
+  - [Strassen algorithm](matrix/multiplication.py)
 - Chapter 5.
-    - Hire assistant problem.
-    - Birthday problem.
+  - Hire assistant problem.
+  - Birthday problem.
 - Chapter 6.
-    - [Max Heap](queue/maxheap.py)
-    - [Heap sort](sort/heapsort.py)
-    - Priority queue
+  - [Max Heap](queue/maxheap.py)
+  - [Heap sort](sort/heapsort.py)
+  - Priority queue
 - Chapter 7.
-    - [Quick sort](sort/quicksort.py)
-    - [Randomized quick sort](sort/quicksort.py)
+  - [Quick sort](sort/quicksort.py)
+  - [Randomized quick sort](sort/quicksort.py)
 - Chapter 8.
-    - [Counting sort](sort/countingsort.py)
-    - [Radix sort](sort/radixsort.py)
-    - [Bucket sort](sort/bucketsort.py)
+  - [Counting sort](sort/countingsort.py)
+  - [Radix sort](sort/radixsort.py)
+  - [Bucket sort](sort/bucketsort.py)
 - Chapter 9.
-    - [Order statistic](sort/selectstatistic.py)
+  - [Order statistic](sort/selectstatistic.py)
 - Chapter 10.
-    - [Stack](stack/stack.py)
-    - [Queue](queue/queue.py)
-    - [Singly linked list](linkedlist/singly_linked.py)
-    - [Doubly linked list](linkedlist/doubly_linked.py)
-    - [Linked list with open addressing](linkedlist/open_addressing.py)
+  - [Stack](stack/stack.py)
+  - [Queue](queue/queue.py)
+  - [Singly linked list](linkedlist/singly_linked.py)
+  - [Doubly linked list](linkedlist/doubly_linked.py)
+  - [Linked list with open addressing](linkedlist/open_addressing.py)
 - Chapter 11.
-    - [Hash table](hashing/hash_table.py)
-    - Hash with open addressing
-    - [Double Hashing](hashing/double_hashing.py)
-    - Perfect hashing
+  - [Hash table](hashing/hash_table.py)
+  - Hash with open addressing
+  - [Double Hashing](hashing/double_hashing.py)
+  - Perfect hashing
 - Chapter 12.
-    - [Binary Search Tree](trees/binarytree.py)
+  - [Binary Search Tree](trees/binarytree.py)
 - Chapter 13.
-    - [Red-black Tree](trees/redblacktree.py)
+  - [Red-black Tree](trees/redblacktree.py)
 - Chapter 14.
-    - Order-statistic tree
-    - [Josephus problem](other/josephus.py)
+  - Order-statistic tree
+  - [Josephus problem](other/josephus.py)
 - Chapter 15.
-    - [Rod cutting problem](dynamicprogramming/cut_rod.py)
-    - [Matrix chain multiplication problem](dynamicprogramming/matrix_chain_order.py)
-    - [Longest common subsequence problem](dynamicprogramming/longest_common_subsequence.py)
-    - Optimal binary search tree
-    - [Edit distance](dynamicprogramming/edit_distance.py)
+  - [Rod cutting problem](dynamicprogramming/cut_rod.py)
+  - [Matrix chain multiplication problem](dynamicprogramming/matrix_chain_order.py)
+  - [Longest common subsequence problem](dynamicprogramming/longest_common_subsequence.py)
+  - Optimal binary search tree
+  - [Edit distance](dynamicprogramming/edit_distance.py)
 - Chapter 16.
-    - [Activity selection problem.](greedy/activity_selection.py)
-    - [Knapsack problem.](greedy/knapsack_problem.py)
-    - Huffman coding.
+  - [Activity selection problem.](greedy/activity_selection.py)
+  - [Knapsack problem.](greedy/knapsack_problem.py)
+  - Huffman coding.
 - Chapter 17.
-    - [Dynamic Hashing](hashing/hash_table.py)
+  - [Dynamic Hashing](hashing/hash_table.py)
 - Chapter 18.
-    - [B-tree](trees/btree.py)
+  - [B-tree](trees/btree.py)
 - Chapter 19.
-    - Fibonacci heap
+  - Fibonacci heap
 - Chapter 20.
-    - Van Emde Boas tree
+  - Van Emde Boas tree
 - Chapter 21.
-    - Disjoining-set data structure
-    - Disjoining-set forest
-    - Least common ancestor
+  - Disjoining-set data structure
+  - Disjoining-set forest
+  - Least common ancestor
 - Chapter 22.
-    - [Breadth-first search](graph/breadth_first_search.py)
-    - [Depth-first search](graph/depth_first_search.py)
-    - [Topological sort](graph/topological_sorting.py)
+  - [Breadth-first search](graph/breadth_first_search.py)
+  - [Depth-first search](graph/depth_first_search.py)
+  - [Topological sort](graph/topological_sorting.py)
 - Chapter 23.
-    - [Kruskal's algorithm](graph/kruskal.py)
-    - Prim's algorithm
+  - [Kruskal's algorithm](graph/kruskal.py)
+  - Prim's algorithm
 - Chapter 24.
-    - [Bellman-Ford algorithm](graph/bellman_ford.py)
-    - [Dijkstra's algorithm](graph/dijkstra.py)
+  - [Bellman-Ford algorithm](graph/bellman_ford.py)
+  - [Dijkstra's algorithm](graph/dijkstra.py)
 - Chapter 25.
-    - [Floyd-Warshall algorithm](graph/floyd_warshall.py)
-    - Johnson's algorithm
+  - [Floyd-Warshall algorithm](graph/floyd_warshall.py)
+  - Johnson's algorithm
 - Chapter 26.
-    - Maximum flow problem
-    - Ford–Fulkerson algorithm
-    - Relabel-to-front algorithm
+  - Maximum flow problem
+  - Ford–Fulkerson algorithm
+  - Relabel-to-front algorithm
 - Chapter 27.
-    - [Fibonacci number using multithreading](multithreading/fib.py)
-    - [Matrix multiplication using multithreading](multithreading/matrixmultiply.py)
-    - Multithreading Strassen algorithm
-    - Multithreading merge sort
+  - [Fibonacci number using multithreading](multithreading/fib.py)
+  - [Matrix multiplication using multithreading](multithreading/matrixmultiply.py)
+  - Multithreading Strassen algorithm
+  - Multithreading merge sort
 - Chapter 28.
-    - LU decomposition
-    - [LUP decomposition](matrix/lupdecomposition.py)
-    - Invertible matrix
+  - LU decomposition
+  - [LUP decomposition](matrix/lupdecomposition.py)
+  - Invertible matrix
 - Chapter 29.
-    - Simplex algorithm.
+  - Simplex algorithm.
 - Chapter 30.
-    - [Recursive FFT.](fft/fft.py)
-    - Iterative FFT.
-    - Parallel FFT.
+  - [Recursive FFT.](fft/fft.py)
+  - Iterative FFT.
+  - Parallel FFT.
 - Chapter 31.
-    - [Euclid algorithm.](other/greatestcommondivisor.py)
-    - Modular exponentiation.
-    - RSA algorithm.
-    - Pseudoprime.
-    - Miller–Rabin primality test.
-    - Pollard's rho algorithm.
-    - Binary GCD algorithm.
+  - [Euclid algorithm.](other/greatestcommondivisor.py)
+  - Modular exponentiation.
+  - RSA algorithm.
+  - Pseudoprime.
+  - Miller–Rabin primality test.
+  - Pollard's rho algorithm.
+  - Binary GCD algorithm.
 - Chapter 32.
-    - [String searching algorithm.](string/stringsearch.py)
-    - Rabin–Karp algorithm.
-    - Knuth–Morris–Pratt algorithm.
+  - [String searching algorithm.](string/stringsearch.py)
+  - Rabin–Karp algorithm.
+  - Knuth–Morris–Pratt algorithm.
 - Chapter 33.
-    - Line segment intersection.
-    - Graham scan.
-    - Gift wrapping algorithm.
+  - Line segment intersection.
+  - Graham scan.
+  - Gift wrapping algorithm.
 - Chapter 34.
 - Chapter 35.
-    - Approximate vertex cover.
-    - Approximate travelling salesman problem.
-    - Greedy set cover.
-    - Exact subset sum.
+  - Approximate vertex cover.
+  - Approximate travelling salesman problem.
+  - Greedy set cover.
+  - Exact subset sum.
 
 ## Sort algorithms comparison
 
