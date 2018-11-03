@@ -1,5 +1,5 @@
 """
-Implementing of comb sort algorith
+Implementation of comb sort algorithm
 https://en.wikipedia.org/wiki/Comb_sort
 """
 
