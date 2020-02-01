@@ -1,6 +1,6 @@
 # https://leetcode.com/problems/longest-common-prefix/submissions/
 # Runtime: 24 ms, faster than 96.99% of Python3 online submissions for Longest Common Prefix.
-# Memory Usage: 12.9 MB, less than 100.00% of Python3 online submissions for Longest Common Prefix.
+# Memory Usage: 12.7 MB, less than 100.00% of Python3 online submissions for Longest Common Prefix.
 
 class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:
@@ -16,23 +16,18 @@ class Solution:
         # return "" if empty
         if not strs:
             return ""
+        if len(strs) == 1:
+            return strs[0]
 
-        # get len of words
-        tuples_list = ((len(word), i) for i, word in enumerate(strs))
+        # for starting with shortest
+        sorted_list = sorted(strs, key=len)
 
-        # sorted it, for starting with shortest
-        sorted_list = sorted(tuples_list)
+        # get shortest element
+        prefix = sorted_list.pop(0)
 
-        # get first element
-        _, i = sorted_list.pop(0)
-        prefix = strs[i]
-
-        for len_word, i in sorted_list:
-            # equal
-            if prefix == strs[i]:
-                continue
-
-            else:
-                prefix = find_longest(prefix, strs[i])
+        for word in sorted_list:
+            # id not equal
+            if prefix != word:
+                prefix = find_longest(prefix, word)
 
         return prefix
