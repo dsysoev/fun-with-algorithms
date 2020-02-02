@@ -1,7 +1,8 @@
 # https://leetcode.com/problems/merge-k-sorted-lists/submissions/
-# Runtime: 128 ms, faster than 42.22% of Python3 online submissions for Merge k Sorted Lists.
-# Memory Usage: 16 MB, less than 100.00% of Python3 online submissions for Merge k Sorted Lists.
+# Runtime: 116 ms, faster than 56.96% of Python3 online submissions for Merge k Sorted Lists.
+# Memory Usage: 16.4 MB, less than 56.06% of Python3 online submissions for Merge k Sorted Lists
 
+import sortedcontainers
 
 # Definition for singly-linked list.
 # class ListNode:
@@ -9,32 +10,30 @@
 #         self.val = x
 #         self.next = None
 
+
 class Solution:
     def mergeKLists(self, lists: List[ListNode]) -> ListNode:
 
-        # remove None nodes
+        # skip None nodes
         lists = [node for node in lists if node]
 
-        # get lower node
-        lists.sort(key=lambda x: x.val)
+        # create sorted queue
+        queue = sortedcontainers.SortedList(lists, key=lambda x: x.val)
 
-        merged = None
-        while lists:
+        # set head node
+        head = current = ListNode(0)
 
-            # get lower value
-            node = lists.pop(0)
+        while queue:
 
-            # for first iteration only
-            if merged is None:
-                merged = node
-                merged_node = merged
-            else:
-                merged_node.next = node
-                merged_node = merged_node.next
+            # get lower node
+            node = queue.pop(0)
 
-            if node.next is not None:
-                # add to next iteration
-                lists.append(node.next)
-                lists.sort(key=lambda x: x.val)
+            # swipe next and current
+            current.next = node
+            current = current.next
 
-        return merged
+            if node.next:
+                # add next node
+                queue.add(node.next)
+
+        return head.next
