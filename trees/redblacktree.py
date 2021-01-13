@@ -11,9 +11,10 @@
    number of black nodes.
 """
 
-class Node:
 
-    """ Implementaion of red black tree node
+class Node(object):
+
+    """ Implementation of red black tree node
         a node has value, color (RED or BLACK),
         parent node (node or None) and left and right child (node or None)
     """
@@ -253,7 +254,8 @@ class RedBlackTree:
     def delete(self, value):
         """ delete value from tree """
         node = self.search(value)
-        return self.__delete(node)
+        if node:
+            self.__delete(node)
 
     def __delete(self, node):
         y = node
@@ -280,11 +282,12 @@ class RedBlackTree:
             y.left.parent = y
             y.color = node.color
 
-        if color == Node.BLACK:
+        if x and color == Node.BLACK:
             self.__delete_fixup(x)
 
     def __delete_fixup(self, x):
         """ restore red-black tree properties after insert new node """
+
         while x != self.root and x.color == Node.BLACK:
             # we have a violation
             if x == x.parent.left:
@@ -315,7 +318,6 @@ class RedBlackTree:
                     x = self.root
 
             else:
-
                 y = x.parent.left
                 if y is not None and y.color == Node.RED:
                     # parent is red
@@ -347,6 +349,8 @@ class RedBlackTree:
         """ return a string representation of Tree """
         # a variable to hold the node in ascending order
         sortnodes = []
+        if self.root is None:
+            return ""
         # last node in tree
         maxnode = self.max(self.root)
         # first node in tree
@@ -371,15 +375,33 @@ class RedBlackTree:
 
         return "\n".join(strings)
 
+
 if __name__ in "__main__":
 
+    # example 1
+    print('example 1')
+    print("=" * 30)
     tree = RedBlackTree()
-
     for i in [0, -12, -8, 10, -100]:
         print('insert {} to tree'.format(i))
         tree.insert(i)
-    print(tree)
+        print(tree)
 
     for i in [-100, -8]:
+        print('delete {} from tree'.format(i))
+        tree.delete(i)
+        print(tree)
+
+    # example 2
+    print('example 2')
+    print("=" * 30)
+    tree = RedBlackTree()
+    for i in range(1, 11):
+        print('insert {} to tree'.format(i))
+        tree.insert(i)
+        print(tree)
+
+    for i in range(1, 11):
+        print('delete {} from tree'.format(i))
         tree.delete(i)
         print(tree)
