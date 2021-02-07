@@ -54,6 +54,7 @@ def merge(lst1, lst2):
         lst += lst1
     return lst
 
+
 if __name__ in "__main__":
     LIST = [1, 0, 2, 4, 5, 6, 2, 7, 9, 1, 3, 8, -1]
     print('list      :', LIST)

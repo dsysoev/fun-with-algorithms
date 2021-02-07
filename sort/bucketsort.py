@@ -2,6 +2,7 @@
 
 from insertionsort import insertionsort
 
+
 def bucketsort(lst):
     """ Implementation of bucket sort algorithm """
     if not lst:

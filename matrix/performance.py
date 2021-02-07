@@ -12,8 +12,6 @@ import matplotlib
 
 matplotlib.style.use('seaborn')
 
-from multiplication import naive_square_matrix_product
-from multiplication import strassen_square_matrix_product
 
 def get_performance_multiplication():
 
@@ -41,6 +39,7 @@ def get_performance_multiplication():
             data[desc].append(duration)
 
     return data
+
 
 def plot_chart():
     """ Read result file and plot chart """
@@ -76,11 +75,11 @@ def main():
 
     plot_chart()
 
-if __name__ in "__main__":
 
+if __name__ in "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--force', action='store_true')
-    parser.add_argument('--max_degree', type=int, default=9)
+    parser.add_argument('--max_degree', type=int, default=10)
     parser.add_argument(
         '--results_file',
         type=str,

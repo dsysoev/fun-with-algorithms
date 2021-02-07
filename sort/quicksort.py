@@ -2,6 +2,7 @@
 
 import random
 
+
 def partition(lst, start, end):
     """
     move elements below pivot value to left half of list and bigger to right half
@@ -25,6 +26,7 @@ def partition(lst, start, end):
     lst[store_index], lst[i + 1] = lst[i + 1], lst[store_index]
     return store_index
 
+
 def quick_sort(lst, start, end):
     """ quick sort algorithm always use last element as pivot """
     if start >= end:
@@ -35,6 +37,7 @@ def quick_sort(lst, start, end):
     quick_sort(lst, start, new_pivot - 1)
     # run for right half
     quick_sort(lst, new_pivot + 1, end)
+
 
 def quick_sort_median(lst, start, end):
     """ quick sort algorithm use meadian value element"""
@@ -69,6 +72,7 @@ def quick_sort_median(lst, start, end):
     # run for right half
     quick_sort_median(lst, new_pivot + 1, end)
 
+
 def quick_sort_random(lst, start, end):
     """ random quick sort algorithm use random element everytime """
     if start >= end:
@@ -84,25 +88,27 @@ def quick_sort_random(lst, start, end):
     # run for right half
     quick_sort_random(lst, new_pivot + 1, end)
 
+
 def quicksort(lst):
     """ Implementation of quicksort algorithm with constant pivot """
     quick_sort(lst, 0, len(lst) - 1)
     return lst
+
 
 def quicksort_random(lst):
     """ Implementation of quicksort algorithm with random pivot """
     quick_sort_random(lst, 0, len(lst) - 1)
     return lst
 
+
 def quicksort_median(lst):
     """ Implementation of quicksort algorithm with random pivot """
     quick_sort_median(lst, 0, len(lst) - 1)
     return lst
 
+
 if __name__ in "__main__":
-
     a = [2, 8, 7, 1, 3, 5, 6, 4]
-
     print('list            :', a)
     print('quicksort       :', quicksort(a), quicksort(a) == sorted(a))
     print('quicksort random:', quicksort_random(a), quicksort_random(a) == sorted(a))

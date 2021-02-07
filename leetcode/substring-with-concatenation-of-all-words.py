@@ -2,6 +2,9 @@
 # Runtime: 208 ms, faster than 67.60% of Python3 online submissions for Substring with Concatenation of All Words.
 # Memory Usage: 13.3 MB, less than 70.00% of Python3 online submissions for Substring with Concatenation of All Words.
 
+from typing import List
+
+
 class Solution:
     def findSubstring(self, s: str, words: List[str]) -> List[int]:
 

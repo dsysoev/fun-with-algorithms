@@ -6,6 +6,15 @@ This repository was created during the study of [Introduction to Algorithms, Thi
 
 A well-written book with detailed implementation of algorithms.
 
+## Install 
+
+```shell script
+python3 -m venv venv 
+pip install -r requirements.txt 
+```
+
+## List of Algorithms
+
 List of algorithms presented in the book.
 
 - Chapter 1.
@@ -134,6 +143,14 @@ List of algorithms presented in the book.
 
 Table of complexity of different sorting algorithms:
 
+For plot beautiful performance chart run following command.
+
+~~~shell script
+python sort/performance.py
+~~~
+
+![Sort performance chart](images/sort-performance.png)
+
 | Algorithm       | Worst case | Average case |
 |-----------------|------------|--------------|
 | Insertion Sort  | O(n^2)     | O(n^2)       |
@@ -149,22 +166,11 @@ Table of complexity of different sorting algorithms:
 - Naive matrix multiplication O(n^3)
 - Strassen matrix multiplication O(n^2.81)
 
-## Performance charts
-
-For plot beautiful performance chart run following command.
-
-~~~sh
-python sort/performance.py
-~~~
-
-![Sort performance chart](images/sort-performance.png)
-
-~~~sh
+~~~shell script
 python matrix/performance.py
 ~~~
 
 ![Matrix multiplication performance](images/matrix-performance.png)
-
 
 ## Additional
 

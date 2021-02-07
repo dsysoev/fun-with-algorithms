@@ -1,5 +1,6 @@
 # coding: utf-8
 
+
 def counting_sort(lst, vmin, vmax):
     """ Implementation of counting sort algorithm recursive function """
 
@@ -17,13 +18,13 @@ def counting_sort(lst, vmin, vmax):
 
     return nls
 
+
 def countingsort(lst):
     """ Implementation of counting sort algorithm """
     return counting_sort(lst, min(lst), max(lst))
 
+
 if __name__ in "__main__":
-
     a = [1, 0, 2, 4, 5, 6, 2, 7, 9, 1, 3, 8, -1]
-
     print('list            :', a)
     print('counting sort   :', countingsort(a), countingsort(a) == sorted(a))

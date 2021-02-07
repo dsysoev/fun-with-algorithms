@@ -2,6 +2,7 @@
 
 from __future__ import print_function
 
+
 class Node(object):
     """ a node representation in linked list """
 
@@ -43,6 +44,7 @@ class Node(object):
                 ' data:' + str(self.data) +
                 ' next:' + str(self.next))
 
+
 class Nil(Node):
     """ Nil node implementation """
 
@@ -50,6 +52,7 @@ class Nil(Node):
         self.data = None
         self.next = None
         self.prev = None
+
 
 class LinkedList(object):
     """ simple linked list representation """
@@ -121,6 +124,7 @@ class LinkedList(object):
             current = current.get_next(self.isnext)
         string += str(current.data)
         return string
+
 
 if __name__ in "__main__":
     print('create initial linked list')

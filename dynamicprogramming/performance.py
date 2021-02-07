@@ -90,8 +90,8 @@ def plot_chart():
 
     plt.show()
 
-def main():
 
+def main():
     if FLAGS.force or not os.path.isfile(FLAGS.results_file):
         if not os.path.isdir(os.path.dirname(FLAGS.results_file)):
             # make folders in tmp
@@ -104,6 +104,7 @@ def main():
         print('data saved to {} file'.format(FLAGS.results_file))
 
     plot_chart()
+
 
 if __name__ in "__main__":
     parser = argparse.ArgumentParser()

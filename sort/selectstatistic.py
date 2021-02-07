@@ -1,6 +1,7 @@
 import random
 from quicksort import partition
 
+
 def select_statistic_random(lst, start, end, i):
     """ select i-statistic algorithm use random element everytime """
     if start >= end:
@@ -21,12 +22,14 @@ def select_statistic_random(lst, start, end, i):
         # run for right half
         return select_statistic_random(lst, new_pivot + 1, end, i - k)
 
+
 def select_statistic(lst, i):
     """ Implementation of select i-statistic algorithm with random pivot """
     if i > len(lst):
         raise Exception('i-statistic should be from 0 to {} ({} given)'.format(len(lst) - 1, i))
 
     return select_statistic_random(lst, 0, len(lst) - 1, i + 1)
+
 
 if __name__ in "__main__":
 

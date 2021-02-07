@@ -9,6 +9,7 @@ Best-case performance 	O(n)
 Average performance 	O(n * log(n))
 """
 
+
 def heapsort(lst):
     """ Implementation of heap sort algorithm """
     lenght = len(lst)
@@ -52,6 +53,7 @@ def max_heapify(lst, start, end):
         else:
             # otherwise exit
             break
+
 
 if __name__ in "__main__":
     LIST = [4, 1, 3, 2, 16, 9, 10, 14, 8, 7]

@@ -10,7 +10,6 @@ matplotlib.style.use('seaborn')
 
 import argparse
 import tempfile
-
 import pandas as pd
 
 from insertionsort import insertionsort
@@ -23,8 +22,8 @@ from countingsort import countingsort
 from radixsort import radixsort
 from bucketsort import bucketsort
 
-def get_performance_data():
 
+def get_performance_data():
     skip_algorithm_list = []
     data = {'numbers': []}
 
@@ -37,14 +36,14 @@ def get_performance_data():
 
         data['numbers'].append(n)
         for algorithm, desc in [
-                        ('insertionsort', 'insertion sort'),
-                        ('mergesort', 'merge sort'),
-                        ('heapsort', 'heap sort'),
-                        ('quicksort', 'quick sort'),
-                        ('countingsort', 'counting sort'),
-                        ('radixsort', 'radix sort'),
-                        ('bucketsort', 'bucket sort'),
-                        ]:
+            ('insertionsort', 'insertion sort'),
+            ('mergesort', 'merge sort'),
+            ('heapsort', 'heap sort'),
+            ('quicksort', 'quick sort'),
+            ('countingsort', 'counting sort'),
+            ('radixsort', 'radix sort'),
+            ('bucketsort', 'bucket sort'),
+        ]:
             # skip slow algorithms and set NaN
             if algorithm in skip_algorithm_list:
                 duration = float('NaN')
@@ -52,7 +51,7 @@ def get_performance_data():
                 duration = timeit.Timer(
                     algorithm + '({})'.format(a),
                     """from __main__ import {}""".format(algorithm)
-                    ).timeit(number=100)
+                ).timeit(number=100)
                 if desc not in data:
                     data[desc] = []
                 # if algorithm work more than max_duration_time
@@ -64,6 +63,7 @@ def get_performance_data():
 
     return data
 
+
 def read_df():
     """ read results file and return dataframe """
     # check results file
@@ -71,6 +71,7 @@ def read_df():
         raise IOError("No such file '{}'".format(FLAGS.results_file))
     # read DataFrame
     return pd.read_csv(FLAGS.results_file, index_col='numbers')
+
 
 def plot_chart():
     """ Read result file and plot chart """
@@ -97,8 +98,8 @@ def plot_chart():
 
     plt.show()
 
-def main():
 
+def main():
     if FLAGS.force or not os.path.isfile(FLAGS.results_file):
         if not os.path.isdir(os.path.dirname(FLAGS.results_file)):
             # make folders in tmp
@@ -111,6 +112,7 @@ def main():
         print('data saved to {} file'.format(FLAGS.results_file))
 
     plot_chart()
+
 
 if __name__ in "__main__":
     parser = argparse.ArgumentParser()

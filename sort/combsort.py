@@ -24,8 +24,8 @@ def combsort(lst):
                 swaps = True
     return lst
 
-if __name__ in "__main__":
 
+if __name__ in "__main__":
     LIST = [1, 0, 2, 4, 5, 6, 2, 7, 9, 1, 3, 8, -1]
     print('list        :', LIST)
     print('comb sort   :', combsort(LIST), combsort(LIST) == sorted(LIST))

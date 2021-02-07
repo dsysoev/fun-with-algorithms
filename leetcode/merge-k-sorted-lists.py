@@ -2,13 +2,15 @@
 # Runtime: 116 ms, faster than 56.96% of Python3 online submissions for Merge k Sorted Lists.
 # Memory Usage: 16.4 MB, less than 56.06% of Python3 online submissions for Merge k Sorted Lists
 
+from typing import List
 import sortedcontainers
 
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+
+class ListNode:
+    # Definition for singly-linked list.
+    def __init__(self, x):
+        self.val = x
+        self.next = None
 
 
 class Solution:

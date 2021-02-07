@@ -16,7 +16,7 @@ def bellman_ford(nodes, edges, source):
     ----------
     nodes : set
             names of all nodes in the graph
-    egdes : list
+    edges : list
             list of dependencies between nodes in the graph
             [(node1, node2, weight), ...]
     source : str
