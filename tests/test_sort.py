@@ -51,6 +51,12 @@ def test_mergesort(s):
 
 @settings(max_examples=100)
 @given(s=st.lists(st.integers(min_value=-1000, max_value=1000), min_size=0, max_size=100))
+def test_heapsort(s):
+    assert sorted(s) == heapsort.heapsort(s)
+
+
+@settings(max_examples=100)
+@given(s=st.lists(st.integers(min_value=-1000, max_value=1000), min_size=0, max_size=100))
 def test_quicksort(s):
     assert sorted(s) == quicksort.quicksort(s)
 

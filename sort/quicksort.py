@@ -14,8 +14,9 @@ def partition(lst, start, end):
     # initial store_index
     store_index = start
     # loop up to pivot (last element)
+    i = start
     for i in range(start, end):
-        # if curent value below pivot
+        # if current value below pivot
         if lst[i] <= x:
             # swap index and store_index elements if are differ
             if i != store_index:

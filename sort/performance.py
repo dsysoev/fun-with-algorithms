@@ -12,14 +12,23 @@ import argparse
 import tempfile
 import pandas as pd
 
+# noinspection PyUnresolvedReferences
 from insertionsort import insertionsort
+# noinspection PyUnresolvedReferences
 from mergesort import mergesort
+# noinspection PyUnresolvedReferences
 from heapsort import heapsort
+# noinspection PyUnresolvedReferences
 from quicksort import quicksort
+# noinspection PyUnresolvedReferences
 from quicksort import quicksort_random
+# noinspection PyUnresolvedReferences
 from quicksort import quicksort_median
+# noinspection PyUnresolvedReferences
 from countingsort import countingsort
+# noinspection PyUnresolvedReferences
 from radixsort import radixsort
+# noinspection PyUnresolvedReferences
 from bucketsort import bucketsort
 
 

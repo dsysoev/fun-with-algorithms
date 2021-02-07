@@ -3,7 +3,6 @@ Implementing performance for basic math operation in python
 """
 
 
-import sys
 from time import time
 from functools import wraps
 

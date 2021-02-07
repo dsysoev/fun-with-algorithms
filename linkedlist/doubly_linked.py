@@ -52,6 +52,7 @@ class Nil(Node):
         self.data = None
         self.next = None
         self.prev = None
+        super().__init__(data=self.data, next=self.next, prev=self.prev)
 
 
 class LinkedList(object):

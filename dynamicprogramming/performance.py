@@ -17,9 +17,13 @@ matplotlib.style.use('seaborn')
 
 import pandas as pd
 
+# noinspection PyUnresolvedReferences
 from cut_rod import cut_rod
+# noinspection PyUnresolvedReferences
 from cut_rod import memoized_cut_rod
+# noinspection PyUnresolvedReferences
 from cut_rod import bottom_up_cut_rod
+
 
 def get_performance_data():
 
@@ -57,6 +61,7 @@ def get_performance_data():
 
     return data
 
+
 def read_df():
     """ read results file and return dataframe """
     # check results file
@@ -64,6 +69,7 @@ def read_df():
         raise IOError("No such file '{}'".format(FLAGS.results_file))
     # read DataFrame
     return pd.read_csv(FLAGS.results_file, index_col='numbers')
+
 
 def plot_chart():
     """ Read result file and plot chart """

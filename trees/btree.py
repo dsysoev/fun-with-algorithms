@@ -177,6 +177,7 @@ class Tree(object):
         lst = [s.center(length) for s in strlist]
         return "\n".join(lst)
 
+
 if __name__ in '__main__':
     TREE = Tree(t=2)
     for VALUE in [8, 13, 5, 0, 16, 7, 23, 15, 1, 2, 3]:
