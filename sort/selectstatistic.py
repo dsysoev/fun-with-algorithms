@@ -26,7 +26,7 @@ def select_statistic_random(lst, start, end, i):
 def select_statistic(lst, i):
     """ Implementation of select i-statistic algorithm with random pivot """
     if i > len(lst):
-        raise Exception('i-statistic should be from 0 to {} ({} given)'.format(len(lst) - 1, i))
+        raise ValueError('i-statistic should be from 0 to {} ({} given)'.format(len(lst) - 1, i))
 
     return select_statistic_random(lst, 0, len(lst) - 1, i + 1)
 
@@ -35,7 +35,6 @@ if __name__ in "__main__":
 
     a = [2, 8, 7, 1, 3, 5, 6, 4]
     i = 7
-
     print('list            :', a)
     print('statistic number:', i)
     print('statistic value :', select_statistic(a, i), select_statistic(a, i) == sorted(a)[i])

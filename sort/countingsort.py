@@ -21,6 +21,8 @@ def counting_sort(lst, vmin, vmax):
 
 def countingsort(lst):
     """ Implementation of counting sort algorithm """
+    if not lst:
+        return lst
     return counting_sort(lst, min(lst), max(lst))
 
 

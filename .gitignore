@@ -104,3 +104,5 @@ ENV/
 
 input.txt
 output.txt
+
+tests/.pytest_cache/
