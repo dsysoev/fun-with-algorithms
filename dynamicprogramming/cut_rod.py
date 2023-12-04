@@ -1,7 +1,4 @@
-
-from __future__ import print_function
-
-def cut_rod(price, length):
+def cut_rod(price: list[int], length: int) -> float:
     """ simplest cut rod algorithm
         return value of maximum income
     """
@@ -13,14 +10,18 @@ def cut_rod(price, length):
         income = max(income, price[i] + cut_rod(price, length - i - 1))
     return income
 
-def memoized_cut_rod(price, length):
+
+def memoized_cut_rod(price: list[int], length: int) -> float:
     """ cut rod algorithm with memoized income """
     incomelst = [float("-Inf") for _ in range(length + 1)]
     # set zero income for zero length
     incomelst[0] = 0
     return memoized_cut_rod_aux(price, length, incomelst)
 
-def memoized_cut_rod_aux(price, length, incomelst):
+
+def memoized_cut_rod_aux(price: list[int],
+                         length: int,
+                         incomelst: list[float]) -> float:
     """ recursive cut rod algorithm with memoized income values """
     if incomelst[length] >= 0:
         # if the calculation was performed earlier
@@ -34,7 +35,8 @@ def memoized_cut_rod_aux(price, length, incomelst):
     incomelst[length] = income
     return income
 
-def bottom_up_cut_rod(price, length):
+
+def bottom_up_cut_rod(price: list[int], length: int) -> float:
     """ bottom up implementation of cut rod memoized algorithm """
     incomelst = [float("-Inf") for _ in range(length + 1)]
     # set zero income for zero length
@@ -48,7 +50,9 @@ def bottom_up_cut_rod(price, length):
     # income for whole rod
     return incomelst[length]
 
-def ext_bottom_up_cut_rod(price, length):
+
+def ext_bottom_up_cut_rod(price: list[int],
+                          length: int) -> tuple[list[float], list[int]]:
     """ bottom up implementation of cut rod memoized algorithm """
     incomelst = [float("-Inf") for _ in range(length + 1)]
     cutlst = [0 for _ in range(length + 1)]
@@ -65,7 +69,8 @@ def ext_bottom_up_cut_rod(price, length):
     # income for whole rod
     return incomelst, cutlst
 
-def print_cut_rod(price, length):
+
+def print_cut_rod(price: list[int], length: int) -> str:
     _, cutlst = ext_bottom_up_cut_rod(price, length)
     num = int(length)
     lst = []
@@ -74,13 +79,19 @@ def print_cut_rod(price, length):
         num -= cutlst[num]
     return '(' + ", ".join(lst) + ')'
 
-if __name__ in '__main__':
+
+def main() -> None:
     # price for length
     # length:1  2  3  4  5   6   7   8   9   10
-    PRICE = [1, 5, 8, 9, 10, 17, 17, 20, 25, 30]
+    price = [1, 5, 8, 9, 10, 17, 17, 20, 25, 30]
     # rod length
-    ROD = 7
-    print('simple cut rod   :', cut_rod(PRICE, ROD))
-    print('memoized cut rod :', memoized_cut_rod(PRICE, ROD))
-    print('bottom up cut rod:', bottom_up_cut_rod(PRICE, ROD))
-    print('optimal cutting of the rod:', print_cut_rod(PRICE, ROD))
+    rod = 7
+    print('simple cut rod   :', cut_rod(price, rod))
+    print('memoized cut rod :', memoized_cut_rod(price, rod))
+    print('bottom up cut rod:', bottom_up_cut_rod(price, rod))
+    print('optimal cutting of the rod:', print_cut_rod(price, rod))
+    print('optimal cutting of the rod:', print_cut_rod(price, rod))
+
+
+if __name__ in '__main__':
+    main()
